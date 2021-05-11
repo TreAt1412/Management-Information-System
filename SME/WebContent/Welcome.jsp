@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 
 
     <!DOCTYPE html>
@@ -11,7 +11,7 @@
 
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Insert title here</title>
+        <title>SME</title>
     </head>
 
     <body>
@@ -30,10 +30,11 @@
             <br>
             <br>
             <button type="submit" class="submit-btn">Đăng Nhập</button>
+
+            <div class="register"><a href="register"> Đăng kí doanh nghiệp </a></div>
+            
             </form>
-            <form action="register" method="post" id="login-form">
-                <button type="submit" class="submit-btn">Đăng kí doanh nghiệp</button>
-            </form>
+            
         </div>
     </body>
 

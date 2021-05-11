@@ -101,7 +101,7 @@ public class Dao {
 		ps.setString(1, username);
 		ps.setInt(2, companyID);
 		ps.setString(3, email);
-		ps.executeUpdate();
+		ps.executeQuery();
 		int accountID =-1;
 		if(re.next()) {
 			accountID = re.getInt(1);

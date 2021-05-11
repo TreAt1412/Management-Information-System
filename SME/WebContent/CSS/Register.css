@@ -1,0 +1,25 @@
+@charset "ISO-8859-1";
+
+body{
+	margin: 0px;
+}
+.register{
+	margin-top:100px;
+	margin-left:450px;
+	float:left;
+	height: 400px;
+	width: 300px;
+	
+}
+input{
+	float:right;
+	right:0px;
+}
+
+button{
+	float:left;
+	margin-left:110px;
+}
+a{
+	margin-left: 10px;
+}
