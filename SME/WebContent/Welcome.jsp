@@ -1,5 +1,8 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page import="java.util.*" import="java.io.*"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
     <!DOCTYPE html>
     <html>
@@ -17,6 +20,9 @@
     <body>
         <div id="login">
             <form action="dologin" method="post" id="login-form">
+            <c:if test="${fn:length(message) > 0}">
+			<p style="color:red; margin-left:80px"> <c:out value = "${message}"/></p>
+			</c:if>
                 <label for="" >Mã công ty</label>
                 <input type="text" id="companyCode" name="companyCode" required>
             <br>

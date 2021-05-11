@@ -28,12 +28,27 @@ public class Dao {
 		}
 	}
 	
-	public int checkCompanyCodeExit(String code, String taxNum) throws SQLException{
-		String sql="select * from company where code = ? and taxNum = ?";
+	public int checkCompanyCodeExit(String code) throws SQLException{
+		String sql="select * from company where code = ?";
 		
 		PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, code);
-        ps.setString(2, taxNum);
+       
+        
+        re=ps.executeQuery();
+        while(re.next()) {
+        	return -1;
+        }
+        
+        return 1;
+		
+	}
+	public int checkCompanyTaxNumExit(String taxNum) throws SQLException{
+		String sql="select * from company where taxNum = ?";
+		
+		PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, taxNum);
+    
         
         re=ps.executeQuery();
         while(re.next()) {
@@ -47,7 +62,9 @@ public class Dao {
 	// Dang ki doanh nghiep
 	public int createCompany(String name, String code, String taxNum, String detail, String managerName
 			,String username, String password, String email ) throws SQLException{
-		if(checkCompanyCodeExit(code, taxNum) == -1)
+		if(checkCompanyCodeExit(code) == -1)
+			return -1;
+		if(checkCompanyTaxNumExit(taxNum) == -1)
 			return -1;
 		
 		String sql="insert into company (name, code, taxNum, detail)\r\n" + 

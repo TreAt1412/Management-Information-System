@@ -28,8 +28,8 @@ public class Home extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-String action = request.getServletPath();
-		
+		String action = request.getServletPath();
+		request.setCharacterEncoding("UTF-8");
 		try {
 			switch (action) {
 			

@@ -31,6 +31,7 @@ public class Common extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getServletPath();
 		request.setCharacterEncoding("UTF-8");
+		System.out.println(action);
 		try {
 			switch (action) {
 			
@@ -83,21 +84,20 @@ public class Common extends HttpServlet {
 		String managerName= request.getParameter("managerName");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		System.out.println("code" + companyCode);
-		System.out.println("companyName" + companyName);
-		System.out.println("taxNum" + taxNum);
-		System.out.println("detail" + detail);
-		System.out.println("email" + email);
-		System.out.println("managerName" + managerName);
-		System.out.println("username" + username);
-		System.out.println("password" + password);
+
 		
 		int check = dao.createCompany(companyName, companyCode, taxNum, detail, managerName, username, password, email);
 		
 		if(check == 1) {
 			response.sendRedirect("/SME");
 		}
+		else{
+			Cookie message = new Cookie("message","notsucess");
 		
+			response.addCookie(message);
+			
+			response.sendRedirect("register");
+		}
 		
 	}
 
@@ -125,18 +125,58 @@ public class Common extends HttpServlet {
 			
 			response.sendRedirect("Home");
 		}
+		else {
+			response.addCookie(new Cookie("message", "notsuccess"));
+			response.sendRedirect("/SME");
+		}
 		
 	}
 
 	private void showRegisterPage(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
 		// TODO Auto-generated method stub
-		System.out.println("registerpage");
+		Cookie[] cookies = request.getCookies();
+		String message = "";
+		if(cookies!=null){
+			for(Cookie cookie:cookies){
+				if(cookie.getName().equals("message"))
+					message = cookie.getValue();
+			}
+			
+		}
+		
+		if(message.equals("")) {
+			request.setAttribute("message", "");
+		}
+		else {
+			
+			request.setAttribute("message", "Mã công ty hoặc mã số thuế đã được sử dụng");
+		}
+		response.addCookie(new Cookie("message", ""));
+		
+		
 		request.getRequestDispatcher("Register.jsp").forward(request, response);
 	}
 
 	private void showLoginPage(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		// TODO Auto-generated method stub
-	
+		Cookie[] cookies = request.getCookies();
+		String message = "";
+		if(cookies!=null){
+			for(Cookie cookie:cookies){
+				if(cookie.getName().equals("message"))
+					message = cookie.getValue();
+			}
+			
+		}
+		
+		if(message.equals("")) {
+			request.setAttribute("message", "");
+		}
+		else {
+			
+			request.setAttribute("message", "Tài khoản để đăng nhập không đúng");
+		}
+		response.addCookie(new Cookie("message", ""));
 		request.getRequestDispatcher("Welcome.jsp").forward(request, response);
 	}
 
