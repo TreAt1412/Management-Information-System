@@ -1,0 +1,171 @@
+@charset "ISO-8859-1";
+body{
+	margin: 0;
+}
+.menu{
+	position:absolute;
+	float: left;
+	width: 250px;
+	height: 100vh;
+	background-color: #f1f1f1;
+}
+.content{
+	position:absolute;
+	width: calc(100% - 250px);
+	height: 100vh;
+	background-color: #f1f1f1;
+	margin-left: 250px;
+	
+}
+
+#logo{
+	display: flex;
+	width: 100%;
+	height: 50px;
+}
+
+#menu-content{
+	width: 100%;
+	
+}
+
+#logo .logo-text{
+	height: 100%;
+	width: calc(100% - 50px);
+	font-weight: bold;
+	font-size: 20px;
+	color: #000;
+	text-align: center;
+	line-height: 50px;
+	position: center;
+	
+}
+
+#menu-content ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 250px;
+	background-color: #f1f1f1;
+}
+
+#menu-content ul a{
+	display: block;
+  	color: #000;
+  	padding: 8px 16px;
+  	text-decoration: none;	
+}
+
+#menu-content ul a:hover{
+	background-color: #555;
+  	color: white;
+}
+
+.content-header{
+	height: 50px;
+	background-color: #e0dfe1;
+	
+}
+
+.content-body{
+	position: relative;
+	padding: 10px;
+	height: calc(100vh - 70px);
+	background-color: #e0dfe1;
+}
+
+.content-body .page-title{
+	font-size: 20px;
+	font-weight: bold;
+	
+	
+}
+
+.content-body .grid-content{
+	position: absolute;
+	top: 50px;
+	left: 10px;
+	right: 10px;
+	bottom: 10px;
+	border: 1px solid #ccc;
+}
+
+.grid-content .toolbar{
+	height: 25px;
+	width: 100%;
+	margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.toolbar button{
+	height: 100%;
+	margin-right:10px;
+}
+.grid-content .grid{
+	width: 100%;
+	height: calc(100% - 50px);
+	border: 1px solid #ccc;
+}
+
+.grid-content .paging{
+	border: 1px solid #ccc;
+	height: 25px;
+	width: 100%;
+}
+
+.table-account{
+	width:500px;
+	border-collapse: collapse;
+	border: 1px solid #dddddd;
+}
+
+td, th{
+	text-align: center;
+	border: 1px solid #dddddd;
+}
+
+tr{
+	border-bottom: 2px solid black;
+}
+
+.create-account{
+	position: absolute;
+	float: left;
+    top: 146px;
+    left: 261px;
+    width: 498px;
+    height: 192px;
+	background-color: white;
+	border: 2px solid cornflowerblue;
+	display:none;
+}
+
+.create-account-bottom{
+	position: absolute;
+    float: right;
+    bottom: 0px;
+    right: 0px;
+}
+
+.create-account-bottom button{
+	margin-right: 10px;
+	margin-bottom:10px;
+	
+}
+.create-account-bottom button{
+	cursor: pointer;
+}
+
+.information{
+	height: 80%;
+	width: 100%;
+}
+
+.input-text{
+	float: left;
+    position: absolute;
+    left: 100px;
+}
+label{
+	margin:10px;
+}

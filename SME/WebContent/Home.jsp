@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="java.util.*" import="java.io.*"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 
 <!DOCTYPE html>
@@ -35,6 +35,7 @@
 			  <li><a href="GTGT">Tạo biên lai thuế GTGT</a></li>
 			  <li><a href="ProfitLoss">Kết chuyển lãi lỗ</a></li>
 			  <li><a href="Report">In báo cáo tài chính</a></li>
+			  <li><a href="Account">Thêm tài khoản</a></li>
 			</ul>
 		</div>
 	</div>

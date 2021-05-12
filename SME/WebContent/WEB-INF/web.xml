@@ -22,6 +22,15 @@
 	 <url-pattern>/Home</url-pattern>
 </servlet-mapping>
 
+<servlet>
+     <servlet-name>servlet3</servlet-name>
+     <servlet-class>web.Account</servlet-class>
+</servlet>
+<servlet-mapping>
+	 <servlet-name>servlet3</servlet-name>
+	 <url-pattern>/Account/*</url-pattern>
+</servlet-mapping>
+
 	  
 <jsp-config>
     <jsp-property-group>

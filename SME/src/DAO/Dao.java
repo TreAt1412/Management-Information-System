@@ -11,6 +11,8 @@ import java.util.List;
 
 import javax.sound.midi.Soundbank;
 
+import model.Account;
+
 
 public class Dao {
 	public static Connection connection;
@@ -87,11 +89,14 @@ public class Dao {
 		
 		return 1;
 	}
+	
+	
 	public int createAccount(String username, String password, int companyID, int role, String email) throws SQLException{
 		
 		
 		if(checkAccountExist(username, companyID, email) != -1)
 			return -1;
+		
 		
 		String sql="insert into account (username, password, companyID, role, email)\r\n" + 
 				"values  (?,?, ?, ?,?)";
@@ -118,8 +123,18 @@ public class Dao {
 		ps.setString(1, username);
 		ps.setInt(2, companyID);
 		ps.setString(3, email);
-		ps.executeQuery();
+		re = ps.executeQuery();
 		int accountID =-1;
+		if(re.next()) {
+			accountID = re.getInt(1);
+		}
+		sql = "select * from account where username=? and companyID = ?";
+		ps = connection.prepareStatement(sql);
+		ps.setString(1, username);
+		ps.setInt(2, companyID);
+		
+		re = ps.executeQuery();
+		
 		if(re.next()) {
 			accountID = re.getInt(1);
 		}
@@ -165,5 +180,22 @@ public class Dao {
         System.out.println(3333);
 		return array;
 	}
+	//------------------------ Account company-------------------------------
 	
+	
+	public List<Account> getAllAccount(int companyID) throws SQLException{
+		List<Account> laccount = new ArrayList<Account>();
+		String sql = "select username, role, email from account where companyID = ?";
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ps.setInt(1, companyID);
+		re = ps.executeQuery();
+		while(re.next()) {
+			String username = re.getString(1);
+			int role = re.getInt(2);
+			String email = re.getString(3);
+			laccount.add(new Account(0,username,"", companyID,role, email));
+			
+		}
+		return laccount;
+	}
 }

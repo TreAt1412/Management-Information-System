@@ -33,7 +33,7 @@ public class Home extends HttpServlet {
 		try {
 			switch (action) {
 			
-		
+			
 			default:
 				showHomePage(request, response);
 				break;
@@ -41,6 +41,11 @@ public class Home extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+
+	private void doCreateAccount(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private void showHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

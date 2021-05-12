@@ -34,7 +34,9 @@ public class Common extends HttpServlet {
 		System.out.println(action);
 		try {
 			switch (action) {
-			
+			case "/doCreateAccount":
+				createAccount(request, response);
+				break;
 			case "/register":
 				showRegisterPage(request, response);
 				break;
@@ -57,6 +59,36 @@ public class Common extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+
+	private void createAccount(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		// TODO Auto-generated method stub
+		String username = request.getParameter("username");
+		String password=  request.getParameter("password");
+		int role = Integer.parseInt(request.getParameter("role"));
+		String email = request.getParameter("email");
+		
+		Cookie[] cookies = request.getCookies();
+		int companyID = 0;
+		if(cookies!=null){
+			for(Cookie cookie:cookies){
+				if(cookie.getName().equals("companyID"))
+					companyID = Integer.parseInt(cookie.getValue());
+			}
+			
+		}
+		
+		int check = dao.createAccount(username, password, companyID, role, email);
+		
+		if(check ==1 ) {
+			response.addCookie(new Cookie("message", "success"));
+			
+		}
+		else {
+			response.addCookie(new Cookie("message", "notsuccess"));
+			
+		}
+		response.sendRedirect("Account");
 	}
 
 	private void doTemp(HttpServletRequest request, HttpServletResponse response) {
