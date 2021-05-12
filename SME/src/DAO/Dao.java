@@ -83,7 +83,7 @@ public class Dao {
 		
 		int managerAccountID = createAccount(username, password,companyID,0,  email);
 		
-		int temp = createManager(managerName, "", "", "", managerAccountID);
+		int temp = createManager(managerName, "", managerAccountID);
 		
 		return 1;
 	}
@@ -127,16 +127,14 @@ public class Dao {
 		return accountID;
 	}
 	
-	public int createManager(String name, String phoneNum, String taxNum, String bankAccount, int accountID) throws SQLException{
+	public int createManager(String name, String phoneNum, int accountID) throws SQLException{
 		
-		String sql="insert into manager (name, phoneNum, taxNum, bankAccount, accountID)\r\n" + 
-				"values  (?,?, ?, ?,?)";
+		String sql="insert into manager (name, phoneNum, accountID)\r\n" + 
+				"values  (?, ?,?)";
 		PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, name);
         ps.setString(2, phoneNum);
-        ps.setString(3, taxNum);
-        ps.setString(4, bankAccount);
-        ps.setInt(5, accountID);
+        ps.setInt(3, accountID);
         ps.executeUpdate();
 		return 1;
 	}

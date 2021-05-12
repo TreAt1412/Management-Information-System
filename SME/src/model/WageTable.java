@@ -19,7 +19,7 @@ public class WageTable {
     Date date;
     int status;
     int companyID;
-
+    
     public WageTable() {
     }
 

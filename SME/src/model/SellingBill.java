@@ -16,29 +16,30 @@ public class SellingBill {
     String buyerCode;
     String buyerName;
     String billCode;
-    Date accountingDate;
-    Date voucherDate;
+    
+    Date date;
     String reason;
     String seller;
     int companyID;
     int overBalanceID;
-
+    int totalAmount;
+    
     public SellingBill() {
     }
 
-	public SellingBill(int id, String buyerCode, String buyerName, String billCode, Date accountingDate,
-			Date voucherDate, String reason, String seller, int companyID, int overBalanceID) {
+	public SellingBill(int id, String buyerCode, String buyerName, String billCode, Date date, String reason,
+			String seller, int companyID, int overBalanceID, int totalAmount) {
 		super();
 		this.id = id;
 		this.buyerCode = buyerCode;
 		this.buyerName = buyerName;
 		this.billCode = billCode;
-		this.accountingDate = accountingDate;
-		this.voucherDate = voucherDate;
+		this.date = date;
 		this.reason = reason;
 		this.seller = seller;
 		this.companyID = companyID;
 		this.overBalanceID = overBalanceID;
+		this.totalAmount = totalAmount;
 	}
 
 	public int getId() {
@@ -73,20 +74,12 @@ public class SellingBill {
 		this.billCode = billCode;
 	}
 
-	public Date getAccountingDate() {
-		return accountingDate;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setAccountingDate(Date accountingDate) {
-		this.accountingDate = accountingDate;
-	}
-
-	public Date getVoucherDate() {
-		return voucherDate;
-	}
-
-	public void setVoucherDate(Date voucherDate) {
-		this.voucherDate = voucherDate;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public String getReason() {
@@ -121,6 +114,15 @@ public class SellingBill {
 		this.overBalanceID = overBalanceID;
 	}
 
+	public int getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(int totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
     
+	
     
 }

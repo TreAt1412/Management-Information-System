@@ -5,18 +5,18 @@ import java.util.Date;
 public class OutBill {
 	int id;
 	String receiver, reason;
-	int amount, overBalanceID;
+	int amount, companyID;
 	Date date;
 	public OutBill() {
 		super();
 	}
-	public OutBill(int id, String receiver, String reason, int amount, int overBalanceID, Date date) {
+	public OutBill(int id, String receiver, String reason, int amount, int companyID, Date date) {
 		super();
 		this.id = id;
 		this.receiver = receiver;
 		this.reason = reason;
 		this.amount = amount;
-		this.overBalanceID = overBalanceID;
+		this.companyID = companyID;
 		this.date = date;
 	}
 	public int getId() {
@@ -43,11 +43,12 @@ public class OutBill {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	public int getOverBalanceID() {
-		return overBalanceID;
+	
+	public int getCompanyID() {
+		return companyID;
 	}
-	public void setOverBalanceID(int overBalanceID) {
-		this.overBalanceID = overBalanceID;
+	public void setCompanyID(int companyID) {
+		this.companyID = companyID;
 	}
 	public Date getDate() {
 		return date;

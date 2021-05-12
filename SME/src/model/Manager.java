@@ -13,19 +13,17 @@ public class Manager {
     int id;
     String name;
     String phoneNum;
-    String taxNum;
-    String bankAccount;
+   
     int accountID;
 
     public Manager() {
     }
 
-    public Manager(int id, String name, String phoneNum, String taxNum, String bankAccount, int accountID) {
+    public Manager(int id, String name, String phoneNum, int accountID) {
         this.id = id;
         this.name = name;
         this.phoneNum = phoneNum;
-        this.taxNum = taxNum;
-        this.bankAccount = bankAccount;
+      
         this.accountID = accountID;
     }
 
@@ -53,21 +51,7 @@ public class Manager {
         this.phoneNum = phoneNum;
     }
 
-    public String getTaxNum() {
-        return taxNum;
-    }
-
-    public void setTaxNum(String taxNum) {
-        this.taxNum = taxNum;
-    }
-
-    public String getBankAccount() {
-        return bankAccount;
-    }
-
-    public void setBankAccount(String bankAccount) {
-        this.bankAccount = bankAccount;
-    }
+   
 
     public int getAccountID() {
         return accountID;

@@ -12,80 +12,87 @@ package model;
 public class SellingDetail {
 
     int id;
+    int purchaseID;
     int goodID;
     int quantity;
-    float tax;
-    int purchaseID;
-    String storageAccount;
-    String moneyAccount;
+    int price;
+    
+    
 
     public SellingDetail() {
     }
 
-    public SellingDetail(int id, int goodID, int quantity, float tax, int purchaseID, String storageAccount, String moneyAccount) {
-        this.id = id;
-        this.goodID = goodID;
-        this.quantity = quantity;
-        this.tax = tax;
-        this.purchaseID = purchaseID;
-        this.storageAccount = storageAccount;
-        this.moneyAccount = moneyAccount;
-    }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public SellingDetail(int id, int purchaseID, int goodID, int quantity, int price) {
+		super();
+		this.id = id;
+		this.purchaseID = purchaseID;
+		this.goodID = goodID;
+		this.quantity = quantity;
+		this.price = price;
+	}
 
-    public int getGoodID() {
-        return goodID;
-    }
 
-    public void setGoodID(int goodID) {
-        this.goodID = goodID;
-    }
 
-    public int getQuantity() {
-        return quantity;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
-    public float getTax() {
-        return tax;
-    }
 
-    public void setTax(float tax) {
-        this.tax = tax;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public int getPurchaseID() {
-        return purchaseID;
-    }
 
-    public void setPurchaseID(int purchaseID) {
-        this.purchaseID = purchaseID;
-    }
 
-    public String getStorageAccount() {
-        return storageAccount;
-    }
+	public int getPurchaseID() {
+		return purchaseID;
+	}
 
-    public void setStorageAccount(String storageAccount) {
-        this.storageAccount = storageAccount;
-    }
 
-    public String getMoneyAccount() {
-        return moneyAccount;
-    }
 
-    public void setMoneyAccount(String moneyAccount) {
-        this.moneyAccount = moneyAccount;
-    }
+	public void setPurchaseID(int purchaseID) {
+		this.purchaseID = purchaseID;
+	}
+
+
+
+	public int getGoodID() {
+		return goodID;
+	}
+
+
+
+	public void setGoodID(int goodID) {
+		this.goodID = goodID;
+	}
+
+
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+
+
+	public int getPrice() {
+		return price;
+	}
+
+
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+    
     
 }
