@@ -32,8 +32,19 @@ public class Employee {
         this.wage = wage;
         this.companyID = companyID;
     }
+    
+    
+    public Employee(String name, String department, String role, String bankAccount, String bankName, int wage) {
+		super();
+		this.name = name;
+		this.department = department;
+		this.role = role;
+		this.bankAccount = bankAccount;
+		this.bankName = bankName;
+		this.wage = wage;
+	}
 
-    public int getId() {
+	public int getId() {
         return id;
     }
 

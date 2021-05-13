@@ -13,17 +13,36 @@ public class Good {
     int id;
     String name;
     int goodCategory;
+    int companyID;
 
     public Good() {
     }
 
-    public Good(int id, String name, int goodCategory) {
-        this.id = id;
-        this.name = name;
-        this.goodCategory = goodCategory;
-    }
+    
 
-    public int getId() {
+    public Good(int id, String name, int goodCategory, int companyID) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.goodCategory = goodCategory;
+		this.companyID = companyID;
+	}
+
+
+
+	public int getCompanyID() {
+		return companyID;
+	}
+
+
+
+	public void setCompanyID(int companyID) {
+		this.companyID = companyID;
+	}
+
+
+
+	public int getId() {
         return id;
     }
 

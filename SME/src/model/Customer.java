@@ -15,19 +15,29 @@ public class Customer {
     String name;
     String address;
     String taxNum;
+    int companyID;
 
     public Customer() {
     }
 
-    public Customer(int id, String code, String name, String address, String taxNum) {
+    public Customer(int id, String code, String name, String address, String taxNum, int companyID) {
         this.id = id;
         this.code = code;
         this.name = name;
         this.address = address;
         this.taxNum = taxNum;
+        this.companyID = companyID;
     }
 
-    public int getId() {
+    public int getCompanyID() {
+		return companyID;
+	}
+
+	public void setCompanyID(int companyID) {
+		this.companyID = companyID;
+	}
+
+	public int getId() {
         return id;
     }
 

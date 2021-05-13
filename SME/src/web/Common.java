@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import DAO.Dao;
+import model.Customer;
+import model.Employee;
 
 /**
  * Servlet implementation class Common
@@ -34,9 +36,7 @@ public class Common extends HttpServlet {
 		System.out.println(action);
 		try {
 			switch (action) {
-			case "/doCreateAccount":
-				createAccount(request, response);
-				break;
+			
 			case "/register":
 				showRegisterPage(request, response);
 				break;
@@ -52,6 +52,12 @@ public class Common extends HttpServlet {
 			case "/temp":
 				doTemp(request,response);
 				break;
+			case "/doCustomer":
+				doCustomer(request, response);
+				break;
+			case "/doEmployee":
+				doEmployee(request, response);
+				break;
 			default:
 				showLoginPage(request, response);
 				break;
@@ -61,13 +67,14 @@ public class Common extends HttpServlet {
 		}
 	}
 
-	private void createAccount(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void doEmployee(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ClassNotFoundException {
 		// TODO Auto-generated method stub
-		String username = request.getParameter("username");
-		String password=  request.getParameter("password");
-		int role = Integer.parseInt(request.getParameter("role"));
-		String email = request.getParameter("email");
-		
+		String name = request.getParameter("name");
+        String department = request.getParameter("department");    
+        String role = request.getParameter("role");
+        String bankAccount = request.getParameter("bankAccount");
+        String bankName = request.getParameter("bankName");
+        int wage = Integer.parseInt(request.getParameter("wage"));
 		Cookie[] cookies = request.getCookies();
 		int companyID = 0;
 		if(cookies!=null){
@@ -78,17 +85,47 @@ public class Common extends HttpServlet {
 			
 		}
 		
-		int check = dao.createAccount(username, password, companyID, role, email);
-		
-		if(check ==1 ) {
-			response.addCookie(new Cookie("message", "success"));
-			
+		Employee nv = new Employee(0, name, department, role, bankAccount, bankName, wage, companyID);
+        boolean check = new Dao().addEmployee(nv);
+		if (check == true){
+			response.sendRedirect("Employee");
 		}
 		else {
-			response.addCookie(new Cookie("message", "notsuccess"));
+			Cookie message = new Cookie("message", "not success");
+			response.addCookie(message);
+			
+			response.sendRedirect("Employee");
+		}
+		
+	}
+
+	private void doCustomer(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		// TODO Auto-generated method stub
+		String code = request.getParameter("code");
+		String name = request.getParameter("name");
+		String address = request.getParameter("address");
+		String taxNum = request.getParameter("taxNum");
+		Cookie[] cookies = request.getCookies();
+		int companyID = 0;
+		if(cookies!=null){
+			for(Cookie cookie:cookies){
+				if(cookie.getName().equals("companyID"))
+					companyID = Integer.parseInt(cookie.getValue());
+			}
 			
 		}
-		response.sendRedirect("Account");
+		System.out.println(companyID);
+		Customer c = new Customer(0, code, name, address, taxNum, companyID);
+		boolean check = new Dao().addCustomer(c);
+		if (check == true){
+			response.sendRedirect("Customer");
+		}
+		else {
+			Cookie message = new Cookie("message", "not success");
+			response.addCookie(message);
+			
+			response.sendRedirect("Customer");
+		}
 	}
 
 	private void doTemp(HttpServletRequest request, HttpServletResponse response) {

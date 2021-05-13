@@ -23,21 +23,26 @@
 </servlet-mapping>
 
 <servlet>
-     <servlet-name>servlet3</servlet-name>
-     <servlet-class>web.Account</servlet-class>
+     <servlet-name>servlet4</servlet-name>
+     <servlet-class>web.Customer</servlet-class>
 </servlet>
 <servlet-mapping>
-	 <servlet-name>servlet3</servlet-name>
-	 <url-pattern>/Account/*</url-pattern>
-</servlet-mapping>
+	 <servlet-name>servlet4</servlet-name>
+	 <url-pattern>/Customer</url-pattern>
+</servlet-mapping>	 
 
-	  
+<servlet>
+     <servlet-name>servlet5</servlet-name>
+     <servlet-class>web.Employee</servlet-class>
+</servlet>
+<servlet-mapping>
+	 <servlet-name>servlet5</servlet-name>
+	 <url-pattern>/Employee</url-pattern>
+</servlet-mapping>
 <jsp-config>
     <jsp-property-group>
         <url-pattern>*.jsp</url-pattern>
         <page-encoding>UTF-8</page-encoding>
     </jsp-property-group>
 </jsp-config>
-
-
 </web-app>

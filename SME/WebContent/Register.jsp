@@ -8,7 +8,7 @@
 <head>
  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
  <style>
-            <%@include file="CSS/Register.css"%>
+           <%@include file="CSS/Register.css"%>
         </style>
 <title>Đăng kí doanh nghiệp</title>
 </head>

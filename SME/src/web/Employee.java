@@ -2,7 +2,7 @@ package web;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
-
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,24 +10,26 @@ import javax.servlet.http.HttpServletResponse;
 import DAO.Dao;
 
 /**
- * Servlet implementation class Home
+ * Servlet implementation class Employee
  */
-
-public class Home extends HttpServlet {
+public class Employee extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
 	Dao dao;
-    public Home() {
+    public Employee() {
+        super();
         dao = new Dao();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		String action = request.getServletPath();
 		request.setCharacterEncoding("UTF-8");
 		try {
@@ -35,7 +37,7 @@ public class Home extends HttpServlet {
 			
 		
 			default:
-				showHomePage(request, response);
+				showEmployeePage(request, response);
 				break;
 			}
 		} catch (Exception e) {
@@ -43,9 +45,9 @@ public class Home extends HttpServlet {
 		}
 	}
 
-	private void showHomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void showEmployeePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("Home.jsp").forward(request, response);
+		request.getRequestDispatcher("Employee.jsp").forward(request, response);
 	}
 
 	/**
