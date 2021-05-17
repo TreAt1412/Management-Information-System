@@ -13,29 +13,27 @@ import java.util.Date;
  */
 public class PurchaseBill {
     int id;
-    String sellerCode;
-    String sellerName;
     String billCode;
     Date date;
     String reason;
-    String reciever;
+    String receiver;
+    String sellerCode;
     int companyID;
     int overBalanceID;
     int totalAmount;
 
     public PurchaseBill() {
     }
-
-	public PurchaseBill(int id, String sellerCode, String sellerName, String billCode, Date date, String reason,
-			String reciever, int companyID, int overBalanceID, int totalAmount) {
+    
+	public PurchaseBill(int id, String billCode, Date date, String reason, String receiver, String sellerCode,
+			int companyID, int overBalanceID, int totalAmount) {
 		super();
 		this.id = id;
-		this.sellerCode = sellerCode;
-		this.sellerName = sellerName;
 		this.billCode = billCode;
 		this.date = date;
 		this.reason = reason;
-		this.reciever = reciever;
+		this.receiver = receiver;
+		this.sellerCode = sellerCode;
 		this.companyID = companyID;
 		this.overBalanceID = overBalanceID;
 		this.totalAmount = totalAmount;
@@ -44,25 +42,9 @@ public class PurchaseBill {
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getSellerCode() {
-		return sellerCode;
-	}
-
-	public void setSellerCode(String sellerCode) {
-		this.sellerCode = sellerCode;
-	}
-
-	public String getSellerName() {
-		return sellerName;
-	}
-
-	public void setSellerName(String sellerName) {
-		this.sellerName = sellerName;
 	}
 
 	public String getBillCode() {
@@ -89,12 +71,20 @@ public class PurchaseBill {
 		this.reason = reason;
 	}
 
-	public String getReciever() {
-		return reciever;
+	public String getReceiver() {
+		return receiver;
 	}
 
-	public void setReciever(String reciever) {
-		this.reciever = reciever;
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+
+	public String getSellerCode() {
+		return sellerCode;
+	}
+
+	public void setSellerCode(String sellerCode) {
+		this.sellerCode = sellerCode;
 	}
 
 	public int getCompanyID() {
@@ -122,7 +112,5 @@ public class PurchaseBill {
 	}
 
 	
-
-    
     
 }

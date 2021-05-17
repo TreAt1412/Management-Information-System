@@ -12,7 +12,7 @@ package model;
 public class PurchaseDetail {
     int id;
     int purchaseID;
-    int goodID;
+    String goodName;
     int quantity;
     int price;
    
@@ -23,11 +23,11 @@ public class PurchaseDetail {
 
 
 
-	public PurchaseDetail(int id, int purchaseID, int goodID, int quantity, int price) {
+	public PurchaseDetail(int id, int purchaseID, String goodName, int quantity, int price) {
 		super();
 		this.id = id;
 		this.purchaseID = purchaseID;
-		this.goodID = goodID;
+		this.goodName = goodName;
 		this.quantity = quantity;
 		this.price = price;
 	}
@@ -58,14 +58,14 @@ public class PurchaseDetail {
 
 
 
-	public int getGoodID() {
-		return goodID;
+	public String getGoodName() {
+		return goodName;
 	}
 
 
 
-	public void setGoodID(int goodID) {
-		this.goodID = goodID;
+	public void setGoodName(String goodName) {
+		this.goodName = goodName;
 	}
 
 
@@ -92,5 +92,8 @@ public class PurchaseDetail {
 		this.price = price;
 	}
 
+
+
+	
     
 }

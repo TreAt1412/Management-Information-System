@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -17,6 +19,11 @@ import javax.sound.midi.Soundbank;
 
 import model.Customer;
 import model.Employee;
+import model.Good;
+import model.GoodCategory;
+import model.OverBalance;
+import model.PurchaseBill;
+import model.PurchaseDetail;
 
 
 public class Dao {
@@ -179,7 +186,7 @@ public class Dao {
 		ArrayList<Customer> list = new ArrayList<Customer>();
 		String sql = "select * from customer";
 		PreparedStatement ps = connection.prepareStatement(sql);
-		 re = ps.executeQuery();
+		re = ps.executeQuery();
 		while(re.next()) {
 			int id = re.getInt("id");
 			String code = re.getString("code");
@@ -271,4 +278,155 @@ public class Dao {
             rs = ps.executeUpdate()>0;
             return rs;
     } 
+    
+    //Good
+    public ArrayList<Good> getAllGood()  {
+        ArrayList<Good> listGood = new ArrayList<>();      
+        String sql = "SELECT * FROM good";
+        try{
+	        PreparedStatement ps = connection.prepareStatement(sql);
+	        re = ps.executeQuery();
+	         
+	        while (re.next()){
+	            int id = re.getInt("id");
+	            String name = re.getString("name");
+	            String category = re.getString("goodCategory");
+	            
+      
+            Good g = new Good(id, name, category, 0);
+            listGood.add(g);
+        }
+        }catch(SQLException ex){
+            Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listGood;
+    }
+    
+    public boolean addGood(Good g) throws SQLException, ClassNotFoundException {
+        boolean rs;
+        String query = "INSERT INTO good (name,goodCategory,CompanyID) VALUES (?, ?, ?)";
+        PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        
+        ps.setString(1, g.getName());
+        ps.setString(2, g.getGoodCategory());
+        ps.setInt(3, g.getCompanyID());
+        re = ps.getGeneratedKeys();
+        rs = ps.executeUpdate()>0;
+        return rs;
+    
+ 	 }
+
+    public ArrayList<GoodCategory> getAllGoodCategory()  {
+        ArrayList<GoodCategory> listGC = new ArrayList<>();      
+        String sql = "SELECT * FROM goodcategory";
+        try{
+	        PreparedStatement ps = connection.prepareStatement(sql);
+	        re = ps.executeQuery();
+	         
+	        while (re.next()){
+	            int id = re.getInt("id");
+	            String name = re.getString("name");
+	        GoodCategory gc = new GoodCategory(id, name);
+            listGC.add(gc);
+            System.out.print(listGC);
+        }
+        }catch(SQLException ex){
+            Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listGC;
+    }
+    
+    //PurchaseBill
+    public ArrayList<PurchaseBill> getAllPurchaseBill()  {
+        ArrayList<PurchaseBill> listPB = new ArrayList<>();      
+        String sql = "SELECT * FROM purchasebill";
+        try{
+	        PreparedStatement ps = connection.prepareStatement(sql);
+	        re = ps.executeQuery();
+	        SimpleDateFormat formater= new SimpleDateFormat("dd/MM/yyyy");
+	        while (re.next()){
+	            int id = re.getInt("id");
+	            String billCode = re.getString("billCode");
+	            Date date = re.getDate("Date");
+	            String dateS = new SimpleDateFormat("yyyy-MM-dd").format(date);
+	            System.out.println("date" +dateS);
+	            //ps.setDate(2,  new java.sql.Date(sqlDate.getTime()));
+	            String reason = re.getString("reason");
+	            String receiver = re.getString("receiver");
+	            String sellerCode = re.getString("sellerName");
+	            int companyID = re.getInt("companyID");
+	            int overBalanceID= re.getInt("overBalanceID");
+	            int totalAmount = re.getInt("totalAmount");
+	        PurchaseBill pb = new PurchaseBill(id, billCode, date, reason, receiver, sellerCode, companyID, overBalanceID, totalAmount);
+            listPB.add(pb);
+            System.out.print(listPB);
+        }
+        }catch(SQLException ex){
+            Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listPB;
+    }
+    
+    public void addPurchaseBill(String code, String date, String reason, String receiver, 
+    	int companyID, int overBalanceID, int totalAmount, String sellerName, List<PurchaseDetail> listPD) throws SQLException, ClassNotFoundException, ParseException {
+        boolean rs;
+        String query = "INSERT INTO purchasebill (billCode, Date, reason, receiver, companyID, overBalanceID,"
+        		+ "totalAmount, sellerName ) VALUES (?, ?, ?, ?, ? ,? , ?, ?)";
+        PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        
+        ps.setString(1, code);
+        java.util.Date utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+        ps.setDate(2,  new java.sql.Date(utilDate.getTime()));
+        ps.setString(3, reason);
+        ps.setString(4, receiver);
+        ps.setInt(5, companyID);
+        ps.setInt(6, overBalanceID);
+        ps.setInt(7, totalAmount);
+        ps.setString(8, sellerName);
+        ps.executeUpdate();
+        re = ps.getGeneratedKeys();
+        int pdKey = 0;
+        if(re.next()) {
+        	pdKey = re.getInt(1);
+        }
+        for(int i=0; i< listPD.size(); i++) {
+        	query = "insert into purchasedetail(purchaseID, goodName, quantity, price) values(?, ?, ?, ?)";
+        	ps = connection.prepareStatement(query);
+        	
+        	ps.setInt(1, pdKey);
+        	ps.setString(2, listPD.get(i).getGoodName());
+        	ps.setInt(3, listPD.get(i).getQuantity());
+        	ps.setInt(4, listPD.get(i).getPrice());
+        	ps.execute();
+        }
+        
+    
+ 	 }
+    
+    //OverBalance
+    public ArrayList<OverBalance> getAllOB()  {
+        ArrayList<OverBalance> listOB = new ArrayList<>();      
+        String sql = "SELECT * FROM overbalance";
+        try{
+	        PreparedStatement ps = connection.prepareStatement(sql);
+	        re = ps.executeQuery();
+	         
+	        while (re.next()){
+	            int id = re.getInt("id");
+	            String code = re.getString("code");
+	            String name = re.getString("name");
+	            String bankName = re.getString("bankName");
+	            String bankAccount = re.getString("bankAccount");
+	            
+	            int companyID = re.getInt("companyID");
+	            int offset = re.getInt("offset");
+      
+            OverBalance ob = new OverBalance(id, code, name, bankName, bankAccount, companyID, offset);
+            listOB.add(ob);
+        }
+        }catch(SQLException ex){
+            Logger.getLogger(Dao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listOB;
+    }
 }

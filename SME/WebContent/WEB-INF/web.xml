@@ -39,6 +39,25 @@
 	 <servlet-name>servlet5</servlet-name>
 	 <url-pattern>/Employee</url-pattern>
 </servlet-mapping>
+
+<servlet>
+     <servlet-name>servlet6</servlet-name>
+     <servlet-class>web.Good</servlet-class>
+</servlet>
+<servlet-mapping>
+	 <servlet-name>servlet6</servlet-name>
+	 <url-pattern>/Good</url-pattern>
+</servlet-mapping>
+
+<servlet>
+     <servlet-name>servlet7</servlet-name>
+     <servlet-class>web.PurchaseBill</servlet-class>
+</servlet>
+<servlet-mapping>
+	 <servlet-name>servlet7</servlet-name>
+	 <url-pattern>/PurchaseBill</url-pattern>
+</servlet-mapping>
+
 <jsp-config>
     <jsp-property-group>
         <url-pattern>*.jsp</url-pattern>

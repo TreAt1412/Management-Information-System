@@ -20,7 +20,7 @@
 	<div class="menu">
 		<!-- Logo -->
 		<div id="logo">
-			<div class="logo-text">MASI</div>
+			<div class="logo-text"><p><a href="Home">MASI</a></p></div>
 		</div>
 		<!-- menu-item -->
 		<div id="menu-content">
@@ -28,10 +28,10 @@
 			  <li><a href="Employee">Thêm nhân viên</a></li>
 			  <li><a href="Customer">Thêm khách hàng</a></li>
 			  <li><a href="Good">Thêm mặt hàng</a></li>
-			  <li><a href="WageTablet">Tạo bảng lương</a></li>
+			  <li><a href="WageTable">Tạo bảng lương</a></li>
 			  <li><a href="Overbalance">Nhập số dư</a></li>
-			  <li><a href="WageTablet">Tạo phiếu thu</a></li>
-			  <li><a href="WageTablet">Tạo phiếu chi</a></li>
+			  <li><a href="InBill">Tạo phiếu thu</a></li>
+			  <li><a href="OutBill">Tạo phiếu chi</a></li>
 			  <li><a href="Purchase">Tạo chứng từ mua hàng</a></li>
 			  <li><a href="Sell">Tạo chứng từ bán hàng</a></li>
 			  <li><a href="GTGT">Tạo biên lai thuế GTGT</a></li>
@@ -94,7 +94,7 @@
 		<div class="dialog" >
 	        <div class="dialog-title">
 	            <div class="Tittle-text">
-	                Thông tin nhân viên
+	                Thông tin khách hàng
 	            </div>
 	            <div class="title-close-button"></div>
 	        </div>

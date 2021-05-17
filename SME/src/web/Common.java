@@ -2,6 +2,9 @@ package web;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -10,9 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import DAO.Dao;
 import model.Customer;
 import model.Employee;
+import model.Good;
+import model.PurchaseDetail;
 
 /**
  * Servlet implementation class Common
@@ -58,6 +64,12 @@ public class Common extends HttpServlet {
 			case "/doEmployee":
 				doEmployee(request, response);
 				break;
+			case "/doGood":
+				doGood(request, response);
+				break;
+			case "/doPurchaseBill":
+				doPurchaseBill(request, response);
+				break;
 			default:
 				showLoginPage(request, response);
 				break;
@@ -65,6 +77,74 @@ public class Common extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+
+	private void doPurchaseBill(HttpServletRequest request, HttpServletResponse response) 
+			throws ClassNotFoundException, SQLException, ParseException, IOException {
+		// TODO Auto-generated method stub
+		String nhacc = request.getParameter("nhacc1");		
+		String reason = request.getParameter("reason");		
+		String receiver = request.getParameter("NVMH");		
+		String date = request.getParameter("date");		
+		String code = request.getParameter("code");		
+		String[] names = request.getParameterValues("goodName");
+		String[] quantity = request.getParameterValues("code1");
+		String[] price = request.getParameterValues("code2");	
+		String[] total = request.getParameterValues("code3");	
+		int overBalanceID = Integer.parseInt(request.getParameter("overBalanceID"));		
+		int totalMoney = 0;
+		for(int i=0;i<total.length;i++) {
+			totalMoney+=Integer.parseInt(total[i]);
+		}	
+		
+		Cookie[] cookies = request.getCookies();
+		int companyID = 0;
+		if(cookies!=null){
+			for(Cookie cookie:cookies){
+				if(cookie.getName().equals("companyID"))
+					companyID = Integer.parseInt(cookie.getValue());
+			}
+			
+		}
+		List<PurchaseDetail> pd = new ArrayList<>();
+		for(int i=0; i<names.length; i++) {
+			String name = names[i];
+			int quantity1 = Integer.parseInt(quantity[i]);
+			int price1 = Integer.parseInt(price[i]);
+			pd.add(new PurchaseDetail(0, 0, name, quantity1, price1));
+			
+		}
+		dao.addPurchaseBill(code, date, reason, receiver, companyID, overBalanceID, totalMoney, receiver, pd);
+		response.sendRedirect("PurchaseBill");
+	}
+
+	private void doGood(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException {
+		// TODO Auto-generated method stub
+		String name = request.getParameter("name");
+		String goodCategory = request.getParameter("goodCategory");
+		Cookie[] cookies = request.getCookies();
+		int companyID = 0;
+		if(cookies!=null){
+			for(Cookie cookie:cookies){
+				if(cookie.getName().equals("companyID"))
+					companyID = Integer.parseInt(cookie.getValue());
+			}
+			
+		}
+		System.out.println(goodCategory);
+		Good g = new Good(0, name, goodCategory, companyID);
+		
+		boolean check = new Dao().addGood(g);
+		if(check == true) {
+			response.sendRedirect("Good");
+		}
+		else {
+			Cookie message = new Cookie("message", "not success");
+			response.addCookie(message);
+			
+			response.sendRedirect("Good");
+		}
+		
 	}
 
 	private void doEmployee(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ClassNotFoundException {

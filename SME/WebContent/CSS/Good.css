@@ -124,7 +124,6 @@ table td,th{
 	padding: 4px;
 }
 
-
 table thead{
 	background-color: rgb(239, 239, 239);
 }
@@ -133,8 +132,6 @@ table tbody tr:hover{
 	background-color: #b8e3ff;
 	cursor: pointer;
 }
-
-
 
 .dialog {
     position: absolute;
@@ -208,3 +205,4 @@ input:focus {
     height: 35px;
     width: 100px;
 }
+

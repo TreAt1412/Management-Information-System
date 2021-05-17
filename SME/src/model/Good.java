@@ -12,7 +12,7 @@ package model;
 public class Good {
     int id;
     String name;
-    int goodCategory;
+    String goodCategory;
     int companyID;
 
     public Good() {
@@ -20,7 +20,7 @@ public class Good {
 
     
 
-    public Good(int id, String name, int goodCategory, int companyID) {
+    public Good(int id, String name, String goodCategory, int companyID) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -58,11 +58,11 @@ public class Good {
         this.name = name;
     }
 
-    public int getGoodCategory() {
+    public String getGoodCategory() {
         return goodCategory;
     }
 
-    public void setGoodCategory(int goodCategory) {
+    public void setGoodCategory(String goodCategory) {
         this.goodCategory = goodCategory;
     }
     
