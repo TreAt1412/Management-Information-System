@@ -337,7 +337,7 @@ public class Dao {
     }
     
     //PurchaseBill
-    public ArrayList<PurchaseBill> getAllPurchaseBill()  {
+    public ArrayList<PurchaseBill> getAllPurchaseBill() throws ParseException  {
         ArrayList<PurchaseBill> listPB = new ArrayList<>();      
         String sql = "SELECT * FROM purchasebill";
         try{
@@ -350,7 +350,8 @@ public class Dao {
 	            Date date = re.getDate("Date");
 	            String dateS = new SimpleDateFormat("yyyy-MM-dd").format(date);
 	            System.out.println("date" +dateS);
-	            //ps.setDate(2,  new java.sql.Date(sqlDate.getTime()));
+	            java.util.Date  dateU =  new SimpleDateFormat("yyyy-MM-dd").parse(dateS);
+	            
 	            String reason = re.getString("reason");
 	            String receiver = re.getString("receiver");
 	            String sellerCode = re.getString("sellerName");
