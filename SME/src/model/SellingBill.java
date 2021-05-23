@@ -13,8 +13,7 @@ import java.util.Date;
  */
 public class SellingBill {
     int id;
-    String buyerCode;
-    String buyerName;
+   
     String billCode;
     
     Date date;
@@ -23,16 +22,15 @@ public class SellingBill {
     int companyID;
     int overBalanceID;
     int totalAmount;
+    String reciever;
     
     public SellingBill() {
     }
 
-	public SellingBill(int id, String buyerCode, String buyerName, String billCode, Date date, String reason,
-			String seller, int companyID, int overBalanceID, int totalAmount) {
+	public SellingBill(int id, String billCode, Date date, String reason, String seller, int companyID,
+			int overBalanceID, int totalAmount, String reciever) {
 		super();
 		this.id = id;
-		this.buyerCode = buyerCode;
-		this.buyerName = buyerName;
 		this.billCode = billCode;
 		this.date = date;
 		this.reason = reason;
@@ -40,6 +38,7 @@ public class SellingBill {
 		this.companyID = companyID;
 		this.overBalanceID = overBalanceID;
 		this.totalAmount = totalAmount;
+		this.reciever = reciever;
 	}
 
 	public int getId() {
@@ -48,22 +47,6 @@ public class SellingBill {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getBuyerCode() {
-		return buyerCode;
-	}
-
-	public void setBuyerCode(String buyerCode) {
-		this.buyerCode = buyerCode;
-	}
-
-	public String getBuyerName() {
-		return buyerName;
-	}
-
-	public void setBuyerName(String buyerName) {
-		this.buyerName = buyerName;
 	}
 
 	public String getBillCode() {
@@ -120,6 +103,14 @@ public class SellingBill {
 
 	public void setTotalAmount(int totalAmount) {
 		this.totalAmount = totalAmount;
+	}
+
+	public String getReciever() {
+		return reciever;
+	}
+
+	public void setReciever(String reciever) {
+		this.reciever = reciever;
 	}
 
     

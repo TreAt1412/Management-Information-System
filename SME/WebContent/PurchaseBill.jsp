@@ -158,7 +158,7 @@
 	        </div>
 	        <div class="dialog-footer">
 	            <div>
-	                <label for="">Tài khoản:</label>
+	                <label for="">Tài khoản số dư:</label>
 	                <select name="overBalanceID" id="">                         
 	                    <% ArrayList<OverBalance> listOB = null;
 									listOB = new Dao().getAllOB();

@@ -7,10 +7,11 @@ public class OutBill {
 	String receiver, reason;
 	int amount, companyID;
 	Date date;
+	int overBalanceID;
 	public OutBill() {
 		super();
 	}
-	public OutBill(int id, String receiver, String reason, int amount, int companyID, Date date) {
+	public OutBill(int id, String receiver, String reason, int amount, int companyID, Date date,int overBalanceID) {
 		super();
 		this.id = id;
 		this.receiver = receiver;
@@ -18,6 +19,7 @@ public class OutBill {
 		this.amount = amount;
 		this.companyID = companyID;
 		this.date = date;
+		this.overBalanceID = overBalanceID;
 	}
 	public int getId() {
 		return id;
@@ -49,6 +51,12 @@ public class OutBill {
 	}
 	public void setCompanyID(int companyID) {
 		this.companyID = companyID;
+	}
+	public int getOverBalanceID() {
+		return overBalanceID;
+	}
+	public void setOverBalanceID(int overBalanceID) {
+		this.overBalanceID = overBalanceID;
 	}
 	public Date getDate() {
 		return date;

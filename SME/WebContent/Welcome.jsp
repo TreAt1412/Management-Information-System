@@ -30,10 +30,12 @@
             <br>
             <br>
             <button type="submit" class="submit-btn">Đăng Nhập</button>
+            <br>
+            <br>
+            <br>
+            <a href="register">Đăng kí doanh nghiệp</a>
             </form>
-            <form action="register" method="post" id="login-form">
-                <button type="submit" class="submit-btn">Đăng kí doanh nghiệp</button>
-            </form>
+            
         </div>
     </body>
 

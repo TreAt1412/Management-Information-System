@@ -1,0 +1,166 @@
+body {
+    position: relative;
+}
+
+.dialog {
+    position: absolute;
+    width: 1000px;
+    height: 440px;
+    border: 3px solid #0973b9;
+    border-radius: 3px;
+    background-color: #ffd800;
+    top: 50px;
+    left: 350px;
+    right: 0;
+    bottom: 0;
+}
+
+
+
+.dialog .dialog-title {
+    display: flex;
+    color: #fff;
+    height: 25px;
+    background-color: #0973b9;
+}
+
+.dialog .dialog-title .title-close-button {
+    position: absolute;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    right: 0;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.dialog .dialog-body {
+    padding: 10px;
+    background-color: #fff;
+    height: 342px;
+}
+
+.dialog-detail {
+    display: flex;
+    height: 50px;
+    justify-content: space-around;
+}
+
+select {
+    height: 27px;
+    padding: 0 2px;
+}
+
+.dialog-detail label {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.dialog-detail input[type=text] {
+    padding: 0 4px;
+    border: 1px solid #ccc;
+    height: 20px;
+}
+
+.dialog-detail input:focus {
+    border: 1px solid #5d8be2;
+    outline: none;
+}
+
+.dialog-body .dialog-table {
+    margin-top: 10px;
+    position: relative;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 0px;
+}
+
+td input {
+    width: 150px;
+}
+
+.dialog .dialog-footer {
+    height: 50px;
+    width: 100%;
+    background-color: #fff;
+    border-top: 3px solid #ccc;
+    display: flex;
+    align-items: center;
+}
+
+.dialog-footer input[type=submit] {
+    position: absolute;
+    height: 35px;
+    width: 80px;
+    bottom: 0;
+    right: 0;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+
+
+
+.dialog1 {
+    position: absolute;
+    width: 1000px;
+    height: 440px;
+    border: 3px solid #0973b9;
+    border-radius: 3px;
+    background-color: #ffd800;
+    top: 50px;
+    left: 350px;
+    right: 0;
+    bottom: 0;
+    visibility: hidden;
+}
+
+.dialog1 .dialog-title {
+    display: flex;
+    color: #fff;
+    height: 25px;
+    background-color: #0973b9;
+}
+
+.dialog1 .dialog-title .title-close-button {
+    position: absolute;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    right: 0;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.dialog1 .dialog-body {
+    padding: 10px;
+    background-color: #fff;
+    height: 342px;
+}
+
+.dialog1 .dialog-footer {
+    height: 50px;
+    width: 100%;
+    background-color: #fff;
+    border-top: 3px solid #ccc;
+    display: flex;
+    align-items: center;
+}
+
+

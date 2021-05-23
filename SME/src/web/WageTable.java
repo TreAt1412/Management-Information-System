@@ -9,17 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import DAO.Dao;
 
- /**
- * Servlet implementation class PurchaseBill
+/**
+ * Servlet implementation class WageTable
  */
-public class PurchaseBill extends HttpServlet {
+public class WageTable extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
 	Dao dao;
-    public PurchaseBill() {
+    public WageTable() {
         super();
         dao = new Dao();
         // TODO Auto-generated constructor stub
@@ -37,7 +37,7 @@ public class PurchaseBill extends HttpServlet {
 			
 		
 			default:
-				showPurchaseBillPage(request, response);
+				showWageTablePage(request, response);
 				break;
 			}
 		} catch (Exception e) {
@@ -45,9 +45,10 @@ public class PurchaseBill extends HttpServlet {
 		}
 	}
 
-	private void showPurchaseBillPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void showWageTablePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("PurchaseBill.jsp").forward(request, response);
+		request.getRequestDispatcher("WageTable.jsp").forward(request, response);
+		
 	}
 
 	/**

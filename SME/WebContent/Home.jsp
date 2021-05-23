@@ -37,7 +37,7 @@
 			  <li><a href="PurchaseBill">Tạo chứng từ mua hàng</a></li>
 			  <li><a href="SellingBill">Tạo chứng từ bán hàng</a></li>
 			  <li><a href="GTGT">Tạo biên lai thuế GTGT</a></li>
-			  <li><a href="ProfitLoss">Kết chuyển lãi lỗ</a></li>
+			  <li><a href="KCLL">Kết chuyển lãi lỗ</a></li>
 			  <li><a href="Report">In báo cáo tài chính</a></li>
 			  <li><a href="Account">Thêm tài khoản</a></li>
 			</ul>

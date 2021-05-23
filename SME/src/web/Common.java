@@ -19,6 +19,7 @@ import model.Customer;
 import model.Employee;
 import model.Good;
 import model.PurchaseDetail;
+import model.WageTableDetail;
 
 /**
  * Servlet implementation class Common
@@ -70,6 +71,9 @@ public class Common extends HttpServlet {
 			case "/doPurchaseBill":
 				doPurchaseBill(request, response);
 				break;
+			case "/doWageTable":
+				doWageTable(request, response);
+				break;
 			default:
 				showLoginPage(request, response);
 				break;
@@ -77,6 +81,49 @@ public class Common extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+
+	private void doWageTable(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException {
+		// TODO Auto-generated method stub
+		int month = Integer.parseInt(request.getParameter("month"));
+		System.out.println("month" + month);
+		int year = Integer.parseInt(request.getParameter("year"));
+		System.out.println("year" + year);
+        String[] wages = request.getParameterValues("wage");
+        String[] notes = request.getParameterValues("note");
+        List<WageTableDetail> list = new ArrayList<WageTableDetail>();
+        List<Employee> nv = dao.getAllNV();
+        for(int i=0; i<nv.size(); i++) {
+        	String name = nv.get(i).getName();
+        	String department = nv.get(i).getDepartment();
+        	String role = nv.get(i).getRole();
+        	list.add(new WageTableDetail(0, name, department, role, Integer.parseInt(wages[i]), notes[i], 0));
+        }
+        
+       
+        
+        int totalMoney = 0;
+        for(int i=0;i<wages.length;i++) {
+			totalMoney+=Integer.parseInt(wages[i]);
+		}	
+        
+    
+		Cookie[] cookies = request.getCookies();
+		int companyID = 0;
+		if(cookies!=null){
+			for(Cookie cookie:cookies){
+				if(cookie.getName().equals("companyID"))
+					companyID = Integer.parseInt(cookie.getValue());
+			}
+			
+		}
+		
+		
+		
+		dao.addWageTable(list, month, year, totalMoney, companyID);
+		response.sendRedirect("WageTable");
+		
+		
 	}
 
 	private void doPurchaseBill(HttpServletRequest request, HttpServletResponse response) 

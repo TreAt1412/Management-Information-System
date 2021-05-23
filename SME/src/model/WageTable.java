@@ -16,20 +16,19 @@ public class WageTable {
     int month;
     int year;
     int totalMoney;
-    Date date;
-    int status;
+    
+
     int companyID;
     
     public WageTable() {
     }
 
-    public WageTable(int id, int month, int year, int totalMoney, Date date, int status, int companyID) {
+    public WageTable(int id, int month, int year, int totalMoney, int companyID) {
         this.id = id;
         this.month = month;
         this.year = year;
         this.totalMoney = totalMoney;
-        this.date = date;
-        this.status = status;
+        
         this.companyID = companyID;
     }
 
@@ -65,21 +64,8 @@ public class WageTable {
         this.totalMoney = totalMoney;
     }
 
-    public Date getDate() {
-        return date;
-    }
+    
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     public int getCompanyID() {
         return companyID;

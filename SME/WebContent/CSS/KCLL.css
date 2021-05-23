@@ -1,0 +1,111 @@
+@charset "ISO-8859-1";
+body {
+    position: relative;
+}
+
+.dialog {
+    position: relative;
+    width: 900px;
+    height: 500px;
+    border: 3px solid #0973b9;
+    border-radius: 3px;
+    background-color: #ffd800;
+    top: 0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    visibility: visible;
+}
+
+.dialog .dialog-title {
+    display: flex;
+    color: #fff;
+    height: 25px;
+    background-color: #0973b9;
+}
+
+.dialog .dialog-title .title-close-button {
+    position: absolute;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    right: 0;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.dialog .dialog-body {
+    padding: 10px;
+    background-color: #fff;
+    height: 342px;
+}
+
+.dialog-detail {
+    display: flex;
+    height: 20px;
+    justify-content: space-between;
+}
+
+select {
+    height: 20px;
+    padding: 0 2px;
+}
+
+.dialog-detail label {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.dialog-detail input[type=text] {
+    padding: 0 4px;
+    border: 1px solid #ccc;
+    height: 20px;
+}
+
+.dialog-detail input:focus {
+    border: 1px solid #5d8be2;
+    outline: none;
+}
+
+.dialog-body .dialog-table {
+    margin-top: 10px;
+    position: relative;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 0px;
+}
+
+td input {
+    width: 150px;
+}
+
+.dialog .dialog-footer {
+    height: 110px;
+    width: 100%;
+    background-color: #fff;
+    border-top: 3px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.dialog-footer p {
+    margin: 0;
+}
+
+.div-table{
+	visibility: hidden;
+}

@@ -58,6 +58,23 @@
 	 <url-pattern>/PurchaseBill</url-pattern>
 </servlet-mapping>
 
+<servlet>
+     <servlet-name>servlet8</servlet-name>
+     <servlet-class>web.WageTable</servlet-class>
+</servlet>
+<servlet-mapping>
+	 <servlet-name>servlet8</servlet-name>
+	 <url-pattern>/WageTable</url-pattern>
+</servlet-mapping>
+<servlet>
+     <servlet-name>servlet9</servlet-name>
+     <servlet-class>web.KCLL</servlet-class>
+</servlet>
+<servlet-mapping>
+	 <servlet-name>servlet9</servlet-name>
+	 <url-pattern>/KCLL</url-pattern>
+</servlet-mapping>
+
 <jsp-config>
     <jsp-property-group>
         <url-pattern>*.jsp</url-pattern>

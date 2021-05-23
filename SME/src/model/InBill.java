@@ -8,10 +8,11 @@ public class InBill {
 	int amount;
 	int companyID;
 	Date date;
+	int overBalanceID;
 	public InBill() {
 		super();
 	}
-	public InBill(int id, String payer, String reason, int amount, int companyID, Date date) {
+	public InBill(int id, String payer, String reason, int amount, int companyID, Date date,int overBalanceID) {
 		super();
 		this.id = id;
 		this.payer = payer;
@@ -19,6 +20,7 @@ public class InBill {
 		this.amount = amount;
 		this.companyID = companyID;
 		this.date = date;
+		this.overBalanceID = overBalanceID;
 	}
 	public int getId() {
 		return id;
@@ -56,6 +58,12 @@ public class InBill {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public int getOverBalanceID() {
+		return overBalanceID;
+	}
+	public void setOverBalanceID(int overBalanceID) {
+		this.overBalanceID = overBalanceID;
 	}
 	
 }
