@@ -18,6 +18,13 @@ body{
 	
 }
 
+.content-header a {
+	line-height: 50px;
+	text-decoration: none;
+	float: right;
+	margin-right: 20px;
+}
+
 #logo{
 	display: flex;
 	width: 100%;
@@ -63,7 +70,7 @@ body{
 
 .content-header{
 	height: 50px;
-	background-color: #e0dfe1;
+	background-color: #ffffff;
 	
 }
 
@@ -71,7 +78,7 @@ body{
 	position: relative;
 	padding: 10px;
 	height: calc(100vh - 70px);
-	background-color: #e0dfe1;
+	background-color: #ffffff;
 }
 
 .content-body .page-title{
@@ -113,20 +120,26 @@ body{
 	width: 100%;
 }
 
-.table-account{
-	width:500px;
+
+.grid table{
+	width: 100%;
 	border-collapse: collapse;
-	border: 1px solid #dddddd;
 }
 
-td, th{
-	text-align: center;
-	border: 1px solid #dddddd;
+table td,th{
+	padding: 4px;
 }
 
-tr{
-	border-bottom: 2px solid black;
+
+table thead{
+	background-color: rgb(239, 239, 239);
 }
+
+table tbody tr:hover{
+	background-color: #b8e3ff;
+	cursor: pointer;
+}
+
 
 .create-account{
 	position: absolute;
@@ -134,10 +147,11 @@ tr{
     top: 146px;
     left: 261px;
     width: 498px;
-    height: 192px;
+    height: 200px;
 	background-color: white;
-	border: 2px solid cornflowerblue;
+	border: 2px solid black;
 	display:none;
+	padding-top: 25px;
 }
 
 .create-account-bottom{

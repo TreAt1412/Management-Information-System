@@ -66,6 +66,7 @@
 	 <servlet-name>servlet8</servlet-name>
 	 <url-pattern>/WageTable</url-pattern>
 </servlet-mapping>
+
 <servlet>
      <servlet-name>servlet9</servlet-name>
      <servlet-class>web.KCLL</servlet-class>
@@ -75,6 +76,68 @@
 	 <url-pattern>/KCLL</url-pattern>
 </servlet-mapping>
 
+<servlet>
+     <servlet-name>servlet10</servlet-name>
+     <servlet-class>web.SellingBill</servlet-class>
+</servlet>
+<servlet-mapping>
+	 <servlet-name>servlet10</servlet-name>
+	 <url-pattern>/SellingBill</url-pattern>
+</servlet-mapping>
+
+<servlet>
+     <servlet-name>servlet11</servlet-name>
+     <servlet-class>web.Account</servlet-class>
+</servlet>
+<servlet-mapping>
+	 <servlet-name>servlet11</servlet-name>
+	 <url-pattern>/Account</url-pattern>
+</servlet-mapping>
+
+<servlet>
+     <servlet-name>servlet12</servlet-name>
+     <servlet-class>web.Report</servlet-class>
+</servlet>
+<servlet-mapping>
+	 <servlet-name>servlet12</servlet-name>
+	 <url-pattern>/Report</url-pattern>
+</servlet-mapping>
+
+<servlet>
+     <servlet-name>servlet13</servlet-name>
+     <servlet-class>web.GTGT</servlet-class>
+</servlet>
+<servlet-mapping>
+	 <servlet-name>servlet13</servlet-name>
+	 <url-pattern>/GTGT</url-pattern>
+</servlet-mapping>
+
+<servlet>
+     <servlet-name>servlet14</servlet-name>
+     <servlet-class>web.InBill</servlet-class>
+</servlet>
+<servlet-mapping>
+	 <servlet-name>servlet14</servlet-name>
+	 <url-pattern>/InBill</url-pattern>
+</servlet-mapping>
+
+<servlet>
+     <servlet-name>servlet15</servlet-name>
+     <servlet-class>web.OutBill</servlet-class>
+</servlet>
+<servlet-mapping>
+	 <servlet-name>servlet15</servlet-name>
+	 <url-pattern>/OutBill</url-pattern>
+</servlet-mapping>
+
+<servlet>
+     <servlet-name>servlet16</servlet-name>
+     <servlet-class>web.Overbalance</servlet-class>
+</servlet>
+<servlet-mapping>
+	 <servlet-name>servlet16</servlet-name>
+	 <url-pattern>/Overbalance</url-pattern>
+</servlet-mapping>
 <jsp-config>
     <jsp-property-group>
         <url-pattern>*.jsp</url-pattern>

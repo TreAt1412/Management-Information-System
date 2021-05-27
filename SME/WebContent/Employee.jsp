@@ -9,7 +9,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Insert title here</title>
+	<title>Nhân viên</title>
 	<style>
             <%@include file="CSS/employee.css"%>
             <%@include file="CSS/Customer.css"%>         
@@ -32,24 +32,44 @@
 			  <li><a href="Overbalance">Nhập số dư</a></li>
 			  <li><a href="InBill">Tạo phiếu thu</a></li>
 			  <li><a href="OutBill">Tạo phiếu chi</a></li>
-			  <li><a href="Purchase">Tạo chứng từ mua hàng</a></li>
-			  <li><a href="Sell">Tạo chứng từ bán hàng</a></li>
+			  <li><a href="PurchaseBill">Tạo chứng từ mua hàng</a></li>
+			  <li><a href="SellingBill">Tạo chứng từ bán hàng</a></li>
+			  
+			  <% Cookie[] cookies = request.getCookies();
+				int role = 0;
+				int companyID = 0;
+				if(cookies!=null){
+					for(Cookie cookie:cookies){
+						if(cookie.getName().equals("role")){
+							role = Integer.parseInt(cookie.getValue());
+							
+						}
+						if(cookie.getName().equals("companyID")){
+        					companyID = Integer.parseInt(cookie.getValue());
+							
+						}
+					}
+					
+				} 
+				if(role == 0) {%>
 			  <li><a href="GTGT">Tạo biên lai thuế GTGT</a></li>
-			  <li><a href="ProfitLoss">Kết chuyển lãi lỗ</a></li>
+			  <li><a href="KCLL">Kết chuyển lãi lỗ</a></li>
 			  <li><a href="Report">In báo cáo tài chính</a></li>
 			  <li><a href="Account">Thêm tài khoản</a></li>
+			  <% } %>
 			</ul>
 		</div>
 	</div>
 	<div class="content">
-		<div class="content-header"></div>
+		<div class="content-header">
+			<a href="/SME">Đăng xuất</a>
+		</div>
 		<div class="content-body">
-			<div class="page-title">Danh mục</div>
+			<div class="page-title">Tạo nhân viên</div>
 			<div class="grid-content">
 				<div class="toolbar">
 					<button onclick="add()">Thêm</button>
-					<button>Sửa</button>
-					<button>Xóa</button>
+					
 				</div>
 				
 				<div class="grid">
@@ -70,7 +90,7 @@
 							
 								<% 
 				                ArrayList<Employee> listNV = null;
-				                listNV = new Dao().getAllNV();
+				                listNV = new Dao().getAllNV(companyID);
 				                    if (listNV != null) { 
 				                 for (int i = 0; i < listNV.size(); i++) {%>
 				                <tr><td align="center"><%= listNV.get(i).getId() %></td>

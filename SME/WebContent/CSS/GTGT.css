@@ -98,7 +98,7 @@ body{
 	left: 10px;
 	right: 10px;
 	bottom: 10px;
-	border: 1px solid #ccc;
+	
 }
 
 .grid-content .toolbar{
@@ -111,12 +111,11 @@ body{
 }
 .grid-content .grid{
 	width: 100%;
-	height: calc(100% - 50px);
+	height: calc(100% - 100px);
 	border: 1px solid #ccc;
 }
 
 .grid-content .paging{
-	border: 1px solid #ccc;
 	height: 25px;
 	width: 100%;
 }
@@ -125,11 +124,14 @@ body{
 .grid table{
 	width: 100%;
 	border-collapse: collapse;
+	border: 1px solid #ccc;
 }
 
 table td,th{
 	padding: 4px;
+	
 }
+
 
 table thead{
 	background-color: rgb(239, 239, 239);
@@ -140,76 +142,5 @@ table tbody tr:hover{
 	cursor: pointer;
 }
 
-.dialog {
-    position: absolute;
-    width: 600px;
-    height: 400px;
-    border: 3px solid #0973b9;
-    border-radius: 3px;
-    background-color: #ffd800;
-    top: 100px;
-    left: 377px;
-    right: 0;
-    bottom: 0;
-    visibility: hidden;
-    
-    
-}
 
-.dialog .dialog-title {
-    display: flex;
-    color: #fff;
-    height: 25px;
-    background-color: #0973b9;
-}
-
-.dialog .dialog-title .title-close-button {
-    position: absolute;
-    border: 1px solid #ccc;
-    width: 20px;
-    height: 20px;
-    right: 0;
-}
-
-.dialog .dialog-body {
-    padding: 10px;
-    background-color: #fff;
-    height: 312px;
-}
-
-input {
-    padding: 0 4px;
-    border: 1px solid #ccc;
-    height: 25px;
-}
-
-input:focus {
-    border: 1px solid #0973b9;
-    outline: none;
-}
-
-.row {
-    margin-bottom: 8px;
-    display: block;
-}
-
-.row label {
-    display: block;
-}
-
-.dialog .dialog-footer {
-    height: 40px;
-    width: 100%;
-    background-color: #fff;
-    border-top: 3px solid #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.dialog .dialog-footer input {
-    margin-right: 10px;
-    height: 35px;
-    width: 100px;
-}
 

@@ -1,4 +1,4 @@
-<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+	<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="java.util.*" import="java.io.*"%>
@@ -17,16 +17,8 @@
     </style>
 </head>
 <body>
-	<c:if test="${fn:length(message) > 0}">
-	<p style="color:red; margin-left:80px"> <c:out value = "${message}"/></p>
-		   <script type="text/javascript">
-	       var message = "<%=request.getParameter("message")%>";
-	       alert(message);     
-	       </script>  
-	</c:if>
 
 	    
-
 	<!--Menu -->
 	<div class="menu">
 		<!-- Logo -->
@@ -38,58 +30,77 @@
 			<ul>
 			  <li><a href="Employee">Thêm nhân viên</a></li>
 			  <li><a href="Customer">Thêm khách hàng</a></li>
-			  <li><a href="WageTablet">Tạo bảng lương</a></li>
+			  <li><a href="Good">Thêm mặt hàng</a></li>
+			  <li><a href="WageTable">Tạo bảng lương</a></li>
 			  <li><a href="Overbalance">Nhập số dư</a></li>
-			  <li><a href="Purchase">Tạo chứng từ mua hàng</a></li>
-			  <li><a href="Sell">Tạo chứng từ bán hàng</a></li>
+			  <li><a href="InBill">Tạo phiếu thu</a></li>
+			  <li><a href="OutBill">Tạo phiếu chi</a></li>
+			  <li><a href="PurchaseBill">Tạo chứng từ mua hàng</a></li>
+			  <li><a href="SellingBill">Tạo chứng từ bán hàng</a></li>
+			  <% Cookie[] cookies = request.getCookies();
+				int role = 0;
+				if(cookies!=null){
+					for(Cookie cookie:cookies){
+						if(cookie.getName().equals("role"))
+							role = Integer.parseInt(cookie.getValue());
+					}
+					
+				} 
+				if(role == 0) {%>
 			  <li><a href="GTGT">Tạo biên lai thuế GTGT</a></li>
 			  <li><a href="ProfitLoss">Kết chuyển lãi lỗ</a></li>
 			  <li><a href="Report">In báo cáo tài chính</a></li>
 			  <li><a href="Account">Thêm tài khoản</a></li>
+			  <% } %>
 			</ul>
 		</div>
 	</div>
 	<div class="content">
-		<div class="content-header"></div>
+		<div class="content-header">
+			
+				<a href="/SME">Đăng xuất</a>
+			
+		</div>
 		<div class="content-body">
 			<div class="page-title">Tài khoản</div>
 			<div class="grid-content">
 				<div class="toolbar">
 					<button onclick="document.getElementById('create-account').style.display = 'block';">Thêm</button>
-					<button>Sửa</button>
-					<button>Xóa</button>
+					
 				</div>
 				<div class="grid">
-				<table class="table-account">
-				
-				<tr> 
-					<th>Tài khoản </th>
-					<th>Vai trò </th>
-					<th>Mật khẩu </th>
-				</tr>
-				 
-				 <c:forEach var="account" items="${laccount}">
-				 	<tr>
-				 	<td> <c:out value=" ${account.username}" /> </td>
-				 	<td> <c:if test="${account.role==0}">
-						 Quản lý
-						 </c:if> 				
-						 <c:if test="${account.role==1}">
-						 Nhân viên kế toán	
-						 </c:if> 
-						  </td>
-				 	<td> <c:out value=" ${account.email}" /> </td>
-				 	
-				 	</tr>
-				  </c:forEach>
-				</table>
+					<table class="table-account" border="1" cellpadding="0">
+						<thead>
+							<tr> 
+								<th>Tài khoản </th>
+								<th>Vai trò </th>
+								<th>Email </th>
+							</tr>
+						
+						</thead>
+					 
+						 <c:forEach var="account" items="${laccount}">
+						 	<tr>
+						 	<td> <c:out value=" ${account.username}" /> </td>
+						 	<td> <c:if test="${account.role==0}">
+								 Quản lý
+								 </c:if> 				
+								 <c:if test="${account.role==1}">
+								 Nhân viên kế toán	
+								 </c:if> 
+								  </td>
+						 	<td> <c:out value=" ${account.email}" /> </td>
+						 	
+						 	</tr>
+						  </c:forEach>
+					</table>
 				</div>
 				
 			</div>	
 		</div>
 	</div>
 	<div class="create-account" id="create-account">
-				<form action="doCreateAccount">
+				<form action="doCreateAccount" method="post">
 					<div class="information">
 						<label>Tài khoản</label>
 						<input class="input-text" type="text" name="username" required>
@@ -120,7 +131,5 @@
 				</div>
 </body>
 <script type="text/javascript">
-
 </script>
-
 </html>

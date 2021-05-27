@@ -4,6 +4,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page import="java.util.*" import="java.io.*"%>
 <%@page import="model.Customer"%>
+<%@page import="model.OverBalance"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <!DOCTYPE html>
@@ -12,7 +13,7 @@
  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Khách hàng</title>
 	<style>
-            <%@include file="CSS/Customer.css"%>         
+            <%@include file="CSS/Overbalance.css"%>         
     </style>
 </head>
 <body>
@@ -34,12 +35,12 @@
 			  <li><a href="OutBill">Tạo phiếu chi</a></li>
 			  <li><a href="PurchaseBill">Tạo chứng từ mua hàng</a></li>
 			  <li><a href="SellingBill">Tạo chứng từ bán hàng</a></li>
-			  <% Cookie[] cookies = request.getCookies();
+			  <% Cookie[] cookiess = request.getCookies();
 				int role = 0;
 				int companyID = 0;
-				if(cookies!=null){
-					for(Cookie cookie:cookies){
-						if(cookie.getName().equals("role")){
+				if(cookiess!=null){
+					for(Cookie cookie:cookiess){
+						if(cookie.getName().equals("role")) {
 							role = Integer.parseInt(cookie.getValue());
 							
 						}
@@ -47,6 +48,7 @@
         					companyID = Integer.parseInt(cookie.getValue());
 							
 						}
+        			
 					}
 					
 				} 
@@ -55,7 +57,7 @@
 			  <li><a href="KCLL">Kết chuyển lãi lỗ</a></li>
 			  <li><a href="Report">In báo cáo tài chính</a></li>
 			  <li><a href="Account">Thêm tài khoản</a></li>
-			  <%} %>
+			  <% } %>
 			</ul>
 		</div>
 	</div>
@@ -64,7 +66,7 @@
 			<a href="/SME">Đăng xuất</a>
 		</div>
 		<div class="content-body">
-			<div class="page-title">Tạo khách hàng</div>
+			<div class="page-title">Nhập số dư đầu kì</div>
 			<div class="grid-content">
 				<div class="toolbar">
 					<button onclick="add()">Thêm</button>
@@ -74,33 +76,27 @@
 				<div class="grid">
 					<table border="1" cellpadding="0">
 						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Mã khách hàng</th>
-								<th>Tên khách hàng</th>
-								<th>Địa chỉ</th>
-								<th>Mã số thuế</th>
-								
+							<tr>								
+								<th>Mã tài khoản</th>
+								<th>Tên tài khoản</th>
+								<th>Tên ngân hàng</th>
+								<th>Tài khoản ngân hàng</th>
+								<th>Số dư</th>													
 							</tr>
 						</thead>
-						<tbody>
-							
-								<% 
-									ArrayList<Customer> listCust = null;
-									listCust = new Dao().getAllCust(companyID);
-									if(listCust != null){
-										for(int i=0; i< listCust.size(); i++){ 
-								%>
-								<tr>
-									<td><%= listCust.get(i).getId() %></td>
-									<td class="MaKH"><%= listCust.get(i).getCode() %></td>
-									<td><%= listCust.get(i).getName() %></td>
-									<td><%= listCust.get(i).getAddress() %></td>
-									<td><%= listCust.get(i).getTaxNum() %></td>
-								</tr>
-								<% }
-								}%>
-											
+						<tbody>							
+								 <% ArrayList<OverBalance> listOB = null;
+									listOB = new Dao().getAllOB(companyID);
+										for(int i=0; i< listOB.size(); i++){ 		                        	
+	                        	 %>
+	                        	 	<tr>
+	                         		<td class="code"><%= listOB.get(i).getCode()%></td>
+	                         		<td><%= listOB.get(i).getName()%></td>
+	                         		<td><%= listOB.get(i).getBankName()%></td>
+	                         		<td><%= listOB.get(i).getBankAccount()%></td>
+	                         		<td><%= listOB.get(i).getOffset()%></td>
+	                         		</tr>
+	                            <% } %>								
 						</tbody>
 					</table>
 				
@@ -109,43 +105,47 @@
 			</div>	
 		</div>
 	</div>
-	<form action = "doCustomer" method = "post" name = "myForm">
+	<form action = "doOverbalance" method = "post" name = "myForm">
 		<div class="dialog" >
 	        <div class="dialog-title">
 	            <div class="Tittle-text">
-	                Thông tin khách hàng
+	                Thông tin số dư đầu kì
 	            </div>
 	            <div class="title-close-button"></div>
 	        </div>
 	        <div class="dialog-body">
 	            <div class="row">
-	                <label for="">Mã Khách hàng: </label>
+	                <label for="">Mã tài khoản: </label>
 	                <input type="text" name="code"  required>
 	            </div>
 	            <div class="row">
-	                <label for="">Tên Khách hàng: </label>
+	                <label for="">Tên tài khoản: </label>
 	                <input type="text" name="name" id="" required>
 	            </div>
 	            <div class="row">
-	                <label for="">Địa chỉ: </label>
-	                <input type="text" name="address" id="" required>
+	                <label for="">Tên ngân hàng: </label>
+	                <input type="text" name="bankName" id="" required>
 	            </div>
 	            <div class="row">
-	                <label for="">Mã số thuế: </label>
-	                <input type="text" name="taxNum" id="" required>
+	                <label for="">Tài khoản ngân hàng: </label>
+	                <input type="text" name="bankAccount" id="" required>
+	            </div>
+	              <div class="row">
+	                <label for="">Sô dư: </label>
+	                <input type="text" name="offset" id="" required>
 	            </div>
 	        </div>
 	        <div class="dialog-footer">
 	            <input id="btnSave" type="button" value="Lưu" onclick="
-	            var MaKHs = document.getElementsByClassName('MaKH');
+	            var codes = document.getElementsByClassName('code');
 	    	    
 	    	    var btnSave = document.getElementById('btnSave');
 	    	    
-	            for (var MaKH of MaKHs) {
+	            for (var code of codes) {
 	            	console.log(document.myForm.code.value);
-		            if (document.myForm.code.value === MaKH.textContent) {		            	
-		                alert('Mã Khách Hàng đã tồn tại');		                
-		                code.style.border = ' 2px solid red';
+		            if (document.myForm.code.value === code.textContent) {		            	
+		                alert('Mã số dư đã tồn tại');		                
+		                document.myForm.code.style.border = ' 2px solid red';
 		                return;
 		            }		            
 		        }
@@ -159,7 +159,7 @@
 	    var MaKHs = document.getElementsByClassName("MaKH");
 	    var code = document.getElementById("code");
 	    var btn = document.getElementById("btnSave");
-	    console.log(MaKHs[0].textContent);
+	    
         var content = document.querySelector(".content");
         var dialog = document.querySelector(".dialog");
         function add(){

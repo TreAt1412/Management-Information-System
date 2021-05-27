@@ -14,10 +14,9 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Insert title here</title>
-	<style>
-            <%@include file="CSS/Customer.css"%>      
-            <%@include file="CSS/KCLL.css"%>      
+	<title>Kết chuyển lãi lỗ</title>
+	<style>	  	          
+           <%@include file="CSS/KCLL.css"%>                 
     </style>
 </head>
 <body>
@@ -37,26 +36,44 @@
 			  <li><a href="Overbalance">Nhập số dư</a></li>
 			  <li><a href="InBill">Tạo phiếu thu</a></li>
 			  <li><a href="OutBill">Tạo phiếu chi</a></li>
-			  <li><a href="Purchase">Tạo chứng từ mua hàng</a></li>
-			  <li><a href="Sell">Tạo chứng từ bán hàng</a></li>
+			  <li><a href="PurchaseBill">Tạo chứng từ mua hàng</a></li>
+			  <li><a href="SellingBill">Tạo chứng từ bán hàng</a></li>
+			  <% Cookie[] cookiess = request.getCookies();
+				int role = 0;
+				int companyID = 0;
+				if(cookiess!=null){
+					for(Cookie cookie:cookiess){
+						if(cookie.getName().equals("role")) {
+							role = Integer.parseInt(cookie.getValue());
+							
+						}
+						if(cookie.getName().equals("companyID")){
+        					companyID = Integer.parseInt(cookie.getValue());
+							
+						}
+        			
+					}
+					
+				} 
+				if(role == 0) {%>
 			  <li><a href="GTGT">Tạo biên lai thuế GTGT</a></li>
-			  <li><a href="ProfitLoss">Kết chuyển lãi lỗ</a></li>
+			  <li><a href="KCLL">Kết chuyển lãi lỗ</a></li>
 			  <li><a href="Report">In báo cáo tài chính</a></li>
 			  <li><a href="Account">Thêm tài khoản</a></li>
+			  <% } %>
 			</ul>
 		</div>
 	</div>
 	<div class="content">
-		<div class="content-header"></div>
+		<div class="content-header">
+			<a href="/SME">Đăng xuất</a>
+		</div>
 		<div class="content-body">
-			<div class="page-title">Danh mục</div>
+			<div class="page-title">Kết chuyển lãi lỗ</div>
 			<div class="grid-content">
 				<div class="dialog">
         <div class="dialog-title">
-            <div class="Tittle-text">
-                Kết chuyển lãi,lỗ
-            </div>
-            <div class="title-close-button" onclick="cancel()">X</div>
+            
         </div>
         <div class="dialog-body">
             <div class="dialog-detail">
@@ -64,7 +81,7 @@
                     <label for="">Tài khoản số dư:</label>
                     <select  name="" id="TKsodu">
                         <% ArrayList<OverBalance> listOB = null;
-									listOB = new Dao().getAllOB();
+									listOB = new Dao().getAllOB(companyID);
 										for(int i=0; i< listOB.size(); i++){ 		                        	
 	                        	 %>
 	                            <option value="<%= listOB.get(i).getCode()%>"><%= listOB.get(i).getCode() %></option>
@@ -73,18 +90,22 @@
                 </div>
                 <input type="button" onclick="show()" value = "Xem"/>
             </div>
-            <%	for(int i =0; i<listOB.size();i++){
+            <% 
+            for(int i =0; i<listOB.size();i++){
+            	int taxMoney = 0;	
             	int overbalanceID = Integer.parseInt(listOB.get(i).getCode());
             	%>
+            
             	<div id="dialog<%=overbalanceID%>" class="div-table">
-                <table id="myTable<%=overbalanceID%>" style = "position:absolute" >
+            	<center>
+                <table  id="myTable<%=overbalanceID%>" style = "position:absolute" >
                     <tr>
                         <th style="width:50%">Mô tả</th>
                         <th>Tài khoản</th>
                         <th>Ngày</th>
                         <th>Số tiền</th>
                     </tr>
-                    <% ArrayList<PurchaseBill> lpb = new Dao().getAllPurchaseBill();
+                    <% ArrayList<PurchaseBill> lpb = new Dao().getAllPurchaseBill(companyID);
                     	for(int j = 0 ; j<lpb.size();j++){
                     		if(lpb.get(j).getOverBalanceID() == overbalanceID){%>
                     			<tr> 
@@ -97,20 +118,21 @@
                     		<%}
                     	}
                     %>
-                      <% ArrayList<SellingBill> lsl = new Dao().getAllSellingBill();
+                      <% ArrayList<SellingBill> lsl = new Dao().getAllSellingBill(companyID);
                     	for(int j = 0 ; j<lsl.size();j++){
-                    		if(lsl.get(j).getOverBalanceID() == overbalanceID){%>
+                    		if(lsl.get(j).getOverBalanceID() == overbalanceID){
+                    			taxMoney += lsl.get(j).getTotalAmount();
+                    		%>
                     			<tr> 
                     			<td> <%= lsl.get(j).getReason() %></td>
                     			<td> <%= overbalanceID %></td>
                     			<td> <%= lsl.get(j).getDate() %></td>
                     			<td> <%= lsl.get(j).getTotalAmount() %></td>
-                    			</tr>
-                    			
+                    			</tr>                 			
                     		<%}
                     	}
-                    %>
-                      <% ArrayList<InBill> lib = new Dao().getAllInBill();
+                    %><input id="taxMoney<%=overbalanceID%>" type="hidden" value="<%= taxMoney%>">
+                      <% ArrayList<InBill> lib = new Dao().getAllInBill(companyID);
                     	for(int j = 0 ; j<lib.size();j++){
                     		if(lib.get(j).getOverBalanceID() == overbalanceID){%>
                     			<tr> 
@@ -123,7 +145,7 @@
                     		<%}
                     	}
                     %>
-                      <% ArrayList<OutBill> lob = new Dao().getAllOutBill();
+                      <% ArrayList<OutBill> lob = new Dao().getAllOutBill(companyID);
                     	for(int j = 0 ; j<lob.size();j++){
                     		if(lob.get(j).getOverBalanceID() == overbalanceID){%>
                     			<tr> 
@@ -138,7 +160,9 @@
                     %>
                     
                 </table>
+                 </center>
             </div>
+           
             <%}
             
             %>
@@ -147,6 +171,7 @@
         <div class="dialog-footer">
             <p></p>
             <p id="p1">Tổng lợi nhuận trước thuế:</p>
+            <p id="pt">Tổng tiền thuế:</p>
             <p id="p2">Tổng lợi nhuận sau thuế:</p>
             <p></p>
         </div>
@@ -170,13 +195,17 @@
 			}
 			var p2 = document.getElementById('p2');
 			var p1 = document.getElementById('p1');
-			p1.innerHTML = "Tổng lợi nhuận trước thuế:" + sum;
-			if(Number(sum)>0){
-				p2.innerHTML = "Tổng lợi nhuận sau thuế:" + sum/10;
-			}
-			else{
-				p2.innerHTML = "Tổng lợi nhuận sau thuế: 0" ;
-			}
+			var pt = document.getElementById('pt');
+			var tax = document.getElementById('taxMoney' + TK).value;
+			tax2 = Math.round(eval(tax+"/1.1"));
+			tax = eval(tax + "-" + tax2);
+			p1.innerHTML = "Tổng lợi nhuận trước thuế: " + sum;
+			
+			p2.innerHTML = "Tổng lợi nhuận sau thuế: " + eval(sum  +"-" + tax);
+			
+			pt.innerHTML = "Tổng tiền thuế: " + tax;
+			console.log(tax);
+			
 		}      	
  	        
     </script> 

@@ -3,16 +3,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page import="java.util.*" import="java.io.*"%>
-<%@page import="model.Customer"%>
+<%@page import="model.InBill"%>
+<%@page import="model.OverBalance"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <!DOCTYPE html>
 <html>
 <head>
- 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Khách hàng</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Phiếu thu</title>
 	<style>
-            <%@include file="CSS/Customer.css"%>         
+            <%@include file="CSS/InBill.css"%>         
     </style>
 </head>
 <body>
@@ -34,12 +35,12 @@
 			  <li><a href="OutBill">Tạo phiếu chi</a></li>
 			  <li><a href="PurchaseBill">Tạo chứng từ mua hàng</a></li>
 			  <li><a href="SellingBill">Tạo chứng từ bán hàng</a></li>
-			  <% Cookie[] cookies = request.getCookies();
+			  <% Cookie[] cookiess = request.getCookies();
 				int role = 0;
 				int companyID = 0;
-				if(cookies!=null){
-					for(Cookie cookie:cookies){
-						if(cookie.getName().equals("role")){
+				if(cookiess!=null){
+					for(Cookie cookie:cookiess){
+						if(cookie.getName().equals("role")) {
 							role = Integer.parseInt(cookie.getValue());
 							
 						}
@@ -47,6 +48,7 @@
         					companyID = Integer.parseInt(cookie.getValue());
 							
 						}
+        			
 					}
 					
 				} 
@@ -55,7 +57,7 @@
 			  <li><a href="KCLL">Kết chuyển lãi lỗ</a></li>
 			  <li><a href="Report">In báo cáo tài chính</a></li>
 			  <li><a href="Account">Thêm tài khoản</a></li>
-			  <%} %>
+			  <% } %>
 			</ul>
 		</div>
 	</div>
@@ -64,7 +66,7 @@
 			<a href="/SME">Đăng xuất</a>
 		</div>
 		<div class="content-body">
-			<div class="page-title">Tạo khách hàng</div>
+			<div class="page-title">Tạo phiếu thu</div>
 			<div class="grid-content">
 				<div class="toolbar">
 					<button onclick="add()">Thêm</button>
@@ -76,27 +78,29 @@
 						<thead>
 							<tr>
 								<th>ID</th>
-								<th>Mã khách hàng</th>
-								<th>Tên khách hàng</th>
-								<th>Địa chỉ</th>
-								<th>Mã số thuế</th>
+								<th>Người thu</th>
+								<th>Diễn giải</th>
+								<th>Số dư</th>
+								<th>Tổng tiền</th>
+								<!-- <th>Ngày mua</th> -->
 								
 							</tr>
 						</thead>
 						<tbody>
 							
 								<% 
-									ArrayList<Customer> listCust = null;
-									listCust = new Dao().getAllCust(companyID);
-									if(listCust != null){
-										for(int i=0; i< listCust.size(); i++){ 
+									ArrayList<InBill> listInBill = null;
+									listInBill = new Dao().getAllInBill(companyID);
+									if(listInBill != null){
+										for(int i=0; i< listInBill.size(); i++){ 
 								%>
 								<tr>
-									<td><%= listCust.get(i).getId() %></td>
-									<td class="MaKH"><%= listCust.get(i).getCode() %></td>
-									<td><%= listCust.get(i).getName() %></td>
-									<td><%= listCust.get(i).getAddress() %></td>
-									<td><%= listCust.get(i).getTaxNum() %></td>
+									<td><%= listInBill.get(i).getId() %></td>
+									<td><%= listInBill.get(i).getPayer() %></td>
+									<td><%= listInBill.get(i).getReason() %></td>
+									<td><%= listInBill.get(i).getOverBalanceID() %></td>
+									<td><%= listInBill.get(i).getAmount() %></td>
+									
 								</tr>
 								<% }
 								}%>
@@ -109,30 +113,46 @@
 			</div>	
 		</div>
 	</div>
-	<form action = "doCustomer" method = "post" name = "myForm">
+	<form action = "doInBill" method = "post" name = "myForm">
 		<div class="dialog" >
 	        <div class="dialog-title">
 	            <div class="Tittle-text">
-	                Thông tin khách hàng
+	                Thông tin phiếu thu
 	            </div>
 	            <div class="title-close-button"></div>
 	        </div>
 	        <div class="dialog-body">
-	            <div class="row">
-	                <label for="">Mã Khách hàng: </label>
+	           <!--  <div class="row">
+	                <label for="">Mã phiếu thu: </label>
 	                <input type="text" name="code"  required>
-	            </div>
+	            </div> -->
 	            <div class="row">
-	                <label for="">Tên Khách hàng: </label>
+	                <label for="">Người thu: </label>
 	                <input type="text" name="name" id="" required>
 	            </div>
 	            <div class="row">
-	                <label for="">Địa chỉ: </label>
-	                <input type="text" name="address" id="" required>
+	                <label for="">Diễn giải: </label>
+	                <input type="text" name="reason" id="" required>
 	            </div>
 	            <div class="row">
-	                <label for="">Mã số thuế: </label>
-	                <input type="text" name="taxNum" id="" required>
+	                <label for="">Tổng tiền: </label>
+	                <input type="text" name="amount" id="" required>
+	            </div>
+	            <div class="row">
+	                <label style="margin: 0px;margin-bottom: 5px;" for="">Ngày nhập:</label>
+	                <input style="width: 130px;" type="date" name="date" id="" required="required">
+	            </div>
+	            <div class="row">
+	                <label for="">Tài khoản số dư:</label>
+	                <select name="overBalanceID" id="">                         
+	                    <% ArrayList<OverBalance> listOB = null;
+									listOB = new Dao().getAllOB(companyID);
+										for(int i=0; i< listOB.size(); i++){ 
+		                        	
+	                        	 %>
+	                            <option value="<%= listOB.get(i).getCode()%>"><%= listOB.get(i).getCode() %></option>
+	                            <% } %>
+	                </select>
 	            </div>
 	        </div>
 	        <div class="dialog-footer">
@@ -156,10 +176,9 @@
 	</form>
 	
     <script>
-	    var MaKHs = document.getElementsByClassName("MaKH");
+	    
 	    var code = document.getElementById("code");
 	    var btn = document.getElementById("btnSave");
-	    console.log(MaKHs[0].textContent);
         var content = document.querySelector(".content");
         var dialog = document.querySelector(".dialog");
         function add(){

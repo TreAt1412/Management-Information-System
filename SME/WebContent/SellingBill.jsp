@@ -1,4 +1,4 @@
-<%@page import="model.PurchaseBill"%>
+<%@page import="model.SellingBill"%>
 <%@page import="model.OverBalance"%>
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -9,11 +9,10 @@
 <%@page import="model.Good"%>
 <%@page import="model.OverBalance"%>
 <%@page import="DAO.Dao"%>
-
 <!DOCTYPE html>
 <html>
 <head>
- 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Chứng từ mua hàng</title>
 	<style>
             <%@include file="CSS/Customer.css"%>
@@ -67,12 +66,14 @@
 			</ul>
 		</div>
 	</div>
+	
+	<!-- Table -->
 	<div class="content">
 		<div class="content-header">
 			<a href="/SME">Đăng xuất</a>
 		</div>
 		<div class="content-body">
-			<div class="page-title">Tạo chứng từ mua hàng</div>
+			<div class="page-title">Tạo chứng từ bán hàng</div>
 			<div class="grid-content">
 				<div class="toolbar">
 					<button onclick="add()">Thêm</button>
@@ -86,8 +87,8 @@
 								<th>ID</th>
 								<th>Mã chứng từ</th>
 								<th>Ngày nhập</th>
-								<th>Nhà cung cấp</th>
-								<th>Người nhận</th>
+								<th>Người mua</th>
+								<th>Người bán</th>
 								<th>Diễn giải</th>
 								<th>Số dư</th>
 								<th>Tổng tiền</th>
@@ -97,20 +98,20 @@
 						<tbody>
 							
 								<% 
-									ArrayList<PurchaseBill> listPB = null;
-									listPB = new Dao().getAllPurchaseBill(companyID);
-									if(listPB != null){
-										for(int i=0; i< listPB.size(); i++){ 
+									ArrayList<SellingBill> listSB = null;
+								listSB = new Dao().getAllSellingBill(companyID);
+									if(listSB != null){
+										for(int i=0; i< listSB.size(); i++){ 
 								%>
 								<tr>
-									<td><%= listPB.get(i).getId() %></td>
-									<td class="MaCT"><%= listPB.get(i).getBillCode() %></td>
-									<td><%= listPB.get(i).getDate() %></td>
-									<td><%= listPB.get(i).getSellerCode() %></td>
-									<td><%= listPB.get(i).getReceiver() %></td>
-									<td><%= listPB.get(i).getReason() %></td>
-									<td><%= listPB.get(i).getOverBalanceID() %></td>
-									<td><%= listPB.get(i).getTotalAmount() %></td>
+									<td><%= listSB.get(i).getId() %></td>
+									<td class="MaCT"><%= listSB.get(i).getBillCode() %></td>
+									<td><%= listSB.get(i).getDate() %></td>
+									<td><%= listSB.get(i).getSeller() %></td>
+									<td><%= listSB.get(i).getReciever() %></td>
+									<td><%= listSB.get(i).getReason() %></td>
+									<td><%= listSB.get(i).getOverBalanceID() %></td>
+									<td><%= listSB.get(i).getTotalAmount() %></td>
 								</tr>
 								<% }
 								}%>
@@ -124,11 +125,12 @@
 			</div>	
 		</div>
 	</div>
-	<form  action="doPurchaseBill" method="post">
+	
+	<form  action="doSellingBill" method="post">
 		<div class="dialog">
 	        <div class="dialog-title">
 	            <div class="Tittle-text">
-	                Chứng từ mua hàng
+	                Chứng từ bán hàng
 	            </div>
 	            <div class="title-close-button" onclick="cancel()">X</div>
 	        </div>
@@ -136,7 +138,7 @@
 	            <div class="dialog-detail">
 	                <div class="general"><b>Thông tin chung</b>
 	                    <div class="detail">
-	                        <label for="">Nhà cung cấp:</label>
+	                        <label for="">Người mua:</label>
 	                        <select onclick="show()" name="nhacc" id="nhacc">
 	                        	<% ArrayList<Customer> listCust = null;
 									listCust = new Dao().getAllCust(companyID);
@@ -151,8 +153,8 @@
 	                        <br>
 	                        <label for="">Diễn giải: </label>
 	                        <input style="width:400px;margin-bottom: 5px;margin-top: 5px;" type="text" name="reason" id="" required="required"><br>
-	                        <label for="">Nhân viên mua hàng:</label>
-	                        <input type="text" name="NVMH" id="" required="required">
+	                        <label for="">Nhân viên bán hàng:</label>
+	                        <input type="text" name="NVBH" id="" required="required">
 	                    </div>
 	                </div>
 	                <div class="license"> <b>Chứng từ</b>

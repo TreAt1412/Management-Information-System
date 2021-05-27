@@ -123,7 +123,7 @@ td input {
     background-color: #fff;
     border-top: 3px solid #ccc;
     display: flex;
-    align-items: center;
+    justify-content: space-between;
 }
 
 .dialog-footer input[type=button] {
@@ -143,4 +143,9 @@ label {
 
 .dialog-footer select {
     margin-top: 2px;
+}
+
+#myTable {
+	max-height: 200px;
+	overflow: auto;
 }

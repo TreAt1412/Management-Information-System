@@ -10,7 +10,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Insert title here</title>
+	<title>Mặt hàng</title>
 	<style>
             <%@include file="CSS/Good.css"%>
                 
@@ -29,28 +29,50 @@
 			  <li><a href="Employee">Thêm nhân viên</a></li>
 			  <li><a href="Customer">Thêm khách hàng</a></li>
 			  <li><a href="Good">Thêm mặt hàng</a></li>
-			  <li><a href="WageTablet">Tạo bảng lương</a></li>
+			  <li><a href="WageTable">Tạo bảng lương</a></li>
 			  <li><a href="Overbalance">Nhập số dư</a></li>
-			  <li><a href="WageTablet">Tạo phiếu thu</a></li>
-			  <li><a href="WageTablet">Tạo phiếu chi</a></li>
+			  <li><a href="InBill">Tạo phiếu thu</a></li>
+			  <li><a href="OutBills">Tạo phiếu chi</a></li>
 			  <li><a href="PurchaseBill">Tạo chứng từ mua hàng</a></li>
 			  <li><a href="SellingBill">Tạo chứng từ bán hàng</a></li>
+			  <% Cookie[] cookiess = request.getCookies();
+				int role = 0;
+				int companyID = 0;
+				if(cookiess!=null){
+					for(Cookie cookie:cookiess){
+						if(cookie.getName().equals("role")) {
+							role = Integer.parseInt(cookie.getValue());
+							
+						}
+						if(cookie.getName().equals("companyID")){
+        					companyID = Integer.parseInt(cookie.getValue());
+							
+						}
+        			
+					}
+					
+				} 
+				if(role == 0) {%>
 			  <li><a href="GTGT">Tạo biên lai thuế GTGT</a></li>
-			  <li><a href="ProfitLoss">Kết chuyển lãi lỗ</a></li>
+			  <li><a href="KCLL">Kết chuyển lãi lỗ</a></li>
 			  <li><a href="Report">In báo cáo tài chính</a></li>
 			  <li><a href="Account">Thêm tài khoản</a></li>
+			  <% }
+				
+				%>
 			</ul>
 		</div>
 	</div>
 	<div class="content">
-		<div class="content-header"></div>
+		<div class="content-header">
+			<a href="/SME">Đăng xuất</a>
+		</div>
 		<div class="content-body">
-			<div class="page-title">Danh mục</div>
+			<div class="page-title">Tạo mặt hàng</div>
 			<div class="grid-content">
 				<div class="toolbar">
 					<button onclick="add()">Thêm</button>
-					<button>Sửa</button>
-					<button>Xóa</button>
+					
 				</div>
 				
 				<div class="grid">
@@ -65,8 +87,9 @@
 						<tbody>
 							
 								<% 
+									
 				                	ArrayList<Good> listGood = null;
-				                	listGood = new Dao().getAllGood();
+				                	listGood = new Dao().getAllGood(companyID);
 				                    if (listGood != null) { 
 				                 		for (int i = 0; i < listGood.size(); i++) {%>
 					                <tr><td align="center"><%= listGood.get(i).getId() %></td>
@@ -103,7 +126,10 @@
 	                <div  class="row">
 	                    <label for="">Loại mặt hàng: </label>
 	                    <select name="goodCategory">
-	                    	<% ArrayList<GoodCategory> listGC = null;
+	                    	
+	                    	<% 
+	                    	
+	                    	ArrayList<GoodCategory> listGC = null;
 		                	listGC = new Dao().getAllGoodCategory();
 	                    	for(int i=0; i< listGC.size(); i++){ %>
 	                    	<option value="<%= listGC.get(i).getName() %>">

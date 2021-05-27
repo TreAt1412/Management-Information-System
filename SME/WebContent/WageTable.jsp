@@ -1,3 +1,4 @@
+<%@page import="java.sql.SQLException"%>
 <%@page import="model.WageTableDetail"%>
 <%@page import="DAO.Dao"%>
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
@@ -13,7 +14,7 @@
 <html>
 <head>
  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Insert title here</title>
+	<title>Bảng lương</title>
 	<style>
             <%@include file="CSS/Customer.css"%>  
             <%@include file="CSS/WageTable.css"%>          
@@ -36,24 +37,50 @@
 			  <li><a href="Overbalance">Nhập số dư</a></li>
 			  <li><a href="InBill">Tạo phiếu thu</a></li>
 			  <li><a href="OutBill">Tạo phiếu chi</a></li>
-			  <li><a href="Purchase">Tạo chứng từ mua hàng</a></li>
-			  <li><a href="Sell">Tạo chứng từ bán hàng</a></li>
+			  <li><a href="PurchaseBill">Tạo chứng từ mua hàng</a></li>
+			  <li><a href="SellingBill">Tạo chứng từ bán hàng</a></li>
+			  <% Cookie[] cookiess = request.getCookies();
+				int role = 0;
+				int companyID = 0;
+				int wagetableID = 0;
+				if(cookiess!=null){
+					for(Cookie cookie:cookiess){
+						if(cookie.getName().equals("role")) {
+							role = Integer.parseInt(cookie.getValue());
+							
+						}
+						if(cookie.getName().equals("companyID")){
+        					companyID = Integer.parseInt(cookie.getValue());
+							
+						}
+						if(cookie.getName().equals("wagetableID")){
+							wagetableID = Integer.parseInt(cookie.getValue());
+							
+						}
+
+        			
+					}
+					
+				} 
+				if(role == 0) {%>
 			  <li><a href="GTGT">Tạo biên lai thuế GTGT</a></li>
-			  <li><a href="ProfitLoss">Kết chuyển lãi lỗ</a></li>
+			  <li><a href="KCLL">Kết chuyển lãi lỗ</a></li>
 			  <li><a href="Report">In báo cáo tài chính</a></li>
 			  <li><a href="Account">Thêm tài khoản</a></li>
+			  <% } %>
 			</ul>
 		</div>
 	</div>
 	<div class="content">
-		<div class="content-header"></div>
+		<div class="content-header">
+			<a href="/SME">Đăng xuất</a>
+		</div>
 		<div class="content-body">
-			<div class="page-title">Danh mục</div>
+			<div class="page-title">Tạo bảng lương</div>
 			<div class="grid-content">
 				<div class="toolbar">
 					<button onclick="add()">Thêm</button>
-					<button>Sửa</button>
-					<button>Xóa</button>
+					
 				</div>				
 				<div class="grid">
 					<table border="1" cellpadding="0">
@@ -69,7 +96,7 @@
 						<tbody>
 							  <% 
 									ArrayList<WageTable> listWT = null;
-									listWT = new Dao().getAllWT();
+									listWT = new Dao().getAllWT(companyID);
 									if(listWT != null){
 										for(int i=0; i< listWT.size(); i++){ 
 								%>
@@ -81,6 +108,7 @@
 									<td><form method="post" action="WageTable">
 									<input type="submit" value="Lấy dữ liêu">
 									<input type="hidden" name ="param" value = "<%= listWT.get(i).getId() %>">
+									
 									<input class="xems" onsubmit="window.location.reload()" type="button" value="Xem" onclick="Xem(<%= listWT.get(i).getId() %>,
 									<%= listWT.get(i).getMonth() %>, <%= listWT.get(i).getYear() %>,<%= listWT.get(i).getTotalMoney() %> )"></form></td>
 								</tr>
@@ -118,7 +146,7 @@
                     </tr>
                     <% 
 				                ArrayList<Employee> listNV = null;
-				                listNV = new Dao().getAllNV();
+				                listNV = new Dao().getAllNV(companyID);
 				                    if (listNV != null) { 
 				                 for (int i = 0; i < listNV.size(); i++) {%>
 				                <tr>
@@ -195,8 +223,8 @@
         <div class="dialog-footer"></div>
     </div>
 	
-	<script>
-		
+	<script type="text/javascript">
+		console.log(123);
 		var content = document.querySelector(".content");
 	    var dialog = document.querySelector(".dialog");
 	    var dialog1 = document.querySelector(".dialog1");
@@ -212,6 +240,7 @@
         }
 	    
 		function add(){
+			
 	        dialog.style.visibility = "visible";
 	        content.style.opacity = 0.5; 
 	        dialog.style.opacity = 1.0;   
@@ -251,9 +280,10 @@
 	   
 	        <% 
 	        
-	        int wagetableID= Integer.parseInt(request.getParameter("param"));
+	
 			
-			List<WageTableDetail> listWD = new Dao().getWageTableDetail(wagetableID);
+			List<WageTableDetail> listWD = new Dao().getWageTableDetail1(wagetableID);
+			
 			%>
 			console.log(<%= wagetableID%>);
 			var table = document.getElementById('myTable1');		
@@ -321,21 +351,6 @@
 	        		<%}
 	        	}
 	        %>
-// 	        var divTables = document.querySelectorAll(".div-table");
-// 			for(var divTable of divTables){
-// 				divTable.style.visibility = 'hidden';
-// 			}
-// 			function click(){
-// 				var TKsodu = document.getElementById('TKsodu');	
-// 				console.log(TKsodu.value);			
-// 				for(var divTable of divTables){
-// 					divTable.style.visibility = 'hidden';
-// 					console.log(divTable);	
-// 				}			
-// 				var TK = TKsodu.value;
-// 				document.getElementById('myTable'+TK).style.visibility = 'visible';		
-// 			}
-// 			console.log('123'); 
       	}      	    
     </script> 
 </body>

@@ -11,12 +11,13 @@
 
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Insert title here</title>
+        <title>SME</title>
     </head>
 
     <body>
         <div id="login">
             <form action="dologin" method="post" id="login-form">
+            	<h1>Đăng nhập</h1>
                 <label for="" >Mã công ty</label>
                 <input type="text" id="companyCode" name="companyCode" required>
             <br>
