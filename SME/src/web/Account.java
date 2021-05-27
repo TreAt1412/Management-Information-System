@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,13 +16,13 @@ import DAO.Dao;
 /**
  * Servlet implementation class Account
  */
-
 public class Account extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    Dao  dao;  
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
+	Dao dao;
     public Account() {
         super();
         dao = new Dao();
@@ -32,15 +33,13 @@ public class Account extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		String action = request.getServletPath();
 
 		request.setCharacterEncoding("UTF-8");
 		try {
 			switch (action) {
 			
-			case("/Account/doCreateAccount"):
-				doCreateAccount(request,response);
-				break;
 			default:
 				showAccountPage(request, response);
 				break;
@@ -50,14 +49,8 @@ public class Account extends HttpServlet {
 		}
 	}
 
-	private void doCreateAccount(HttpServletRequest request, HttpServletResponse response) {
+	private void showAccountPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("Creating account");
-	}
-
-	private void showAccountPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-		// TODO Auto-generated method stub
-		
 		int companyID = 0;
 		Cookie[] cookies = request.getCookies();
 		String message = "";
@@ -79,6 +72,7 @@ public class Account extends HttpServlet {
 		List<model.Account> laccount = dao.getAllAccount(companyID);
 		request.setAttribute("laccount", laccount);
 		request.getRequestDispatcher("Account.jsp").forward(request, response);
+		
 	}
 
 	/**

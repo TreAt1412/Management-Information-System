@@ -12,8 +12,8 @@ package model;
 public class SellingDetail {
 
     int id;
-    int purchaseID;
-    int goodID;
+    int sellingID;
+    String goodName;
     int quantity;
     int price;
     
@@ -22,54 +22,38 @@ public class SellingDetail {
     public SellingDetail() {
     }
 
-
-
-	public SellingDetail(int id, int purchaseID, int goodID, int quantity, int price) {
+	public SellingDetail(int id, int sellingID, String goodName, int quantity, int price) {
 		super();
 		this.id = id;
-		this.purchaseID = purchaseID;
-		this.goodID = goodID;
+		this.sellingID = sellingID;
+		this.goodName = goodName;
 		this.quantity = quantity;
 		this.price = price;
 	}
 
+	public int getSellingID() {
+		return sellingID;
+	}
 
+	public void setSellingID(int sellingID) {
+		this.sellingID = sellingID;
+	}
 
+	public String getGoodName() {
+		return goodName;
+	}
+
+	public void setGoodName(String goodName) {
+		this.goodName = goodName;
+	}
+	
 	public int getId() {
 		return id;
 	}
 
-
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
-
-	public int getPurchaseID() {
-		return purchaseID;
-	}
-
-
-
-	public void setPurchaseID(int purchaseID) {
-		this.purchaseID = purchaseID;
-	}
-
-
-
-	public int getGoodID() {
-		return goodID;
-	}
-
-
-
-	public void setGoodID(int goodID) {
-		this.goodID = goodID;
-	}
-
-
 
 	public int getQuantity() {
 		return quantity;

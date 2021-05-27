@@ -18,7 +18,9 @@ import DAO.Dao;
 import model.Customer;
 import model.Employee;
 import model.Good;
+import model.OverBalance;
 import model.PurchaseDetail;
+import model.SellingDetail;
 import model.WageTableDetail;
 
 /**
@@ -43,7 +45,9 @@ public class Common extends HttpServlet {
 		System.out.println(action);
 		try {
 			switch (action) {
-			
+			case "/doCreateAccount":
+				doCreateAccount(request,response);
+				break;
 			case "/register":
 				showRegisterPage(request, response);
 				break;
@@ -71,8 +75,20 @@ public class Common extends HttpServlet {
 			case "/doPurchaseBill":
 				doPurchaseBill(request, response);
 				break;
+			case "/doSellingBill":
+				doSellingBill(request, response);
+				break;
 			case "/doWageTable":
 				doWageTable(request, response);
+				break;
+			case "/doInBill":
+				doInBill(request, response);
+				break;
+			case "/doOutBill":
+				doOutBill(request, response);
+				break;
+			case "/doOverbalance":
+				doOverbalance(request, response);
 				break;
 			default:
 				showLoginPage(request, response);
@@ -83,6 +99,93 @@ public class Common extends HttpServlet {
 		}
 	}
 
+	
+
+	private void doCreateAccount(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		// TODO Auto-generated method stub
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		int role = Integer.parseInt(request.getParameter("role"));
+		String email = request.getParameter("email");
+		Cookie[] cookies = request.getCookies();
+		int companyID = 0;
+		if(cookies!=null){
+			for(Cookie cookie:cookies){
+				if(cookie.getName().equals("companyID"))
+					companyID = Integer.parseInt(cookie.getValue());
+			}
+			
+		}
+		int x = dao.createAccount(username, password, companyID, role, email);
+		request.getRequestDispatcher("Account").forward(request, response);;
+	}
+
+	private void doOverbalance(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+		// TODO Auto-generated method stub
+		String code = request.getParameter("code");
+		String name = request.getParameter("name");
+		String bankName = request.getParameter("bankName");
+		String bankAccount = request.getParameter("bankAccount");
+		int offset = Integer.parseInt(request.getParameter("offset"));
+		Cookie[] cookies = request.getCookies();
+		int companyID = 0;
+		if(cookies!=null){
+			for(Cookie cookie:cookies){
+				if(cookie.getName().equals("companyID"))
+					companyID = Integer.parseInt(cookie.getValue());
+			}
+			
+		}
+		System.out.println(companyID);
+		OverBalance ob = new OverBalance(0, code, name, bankName, bankAccount, companyID,offset);
+		new Dao().addOverbalance(ob);
+		response.sendRedirect("Overbalance.jsp");	
+	}
+
+	private void doOutBill(HttpServletRequest request, HttpServletResponse response) throws SQLException, ParseException, IOException {
+		// TODO Auto-generated method stub
+		String receiver = request.getParameter("name");
+		String reason = request.getParameter("reason");
+		int amount = Integer.parseInt(request.getParameter("amount"));
+		String date = request.getParameter("date");
+		int overBalanceID = Integer.parseInt(request.getParameter("overBalanceID"));	
+		
+		Cookie[] cookies = request.getCookies();
+		int companyID = 0;
+		if(cookies!=null){
+			for(Cookie cookie:cookies){
+				if(cookie.getName().equals("companyID"))
+					companyID = Integer.parseInt(cookie.getValue());
+			}
+			
+		}
+		
+		dao.addOutBill(receiver, reason, amount, companyID, date, overBalanceID);
+		response.sendRedirect("OutBill");
+	}
+
+	private void doInBill(HttpServletRequest request, HttpServletResponse response) throws SQLException, ParseException, IOException {
+		// TODO Auto-generated method stub
+		String payer = request.getParameter("name");
+		String reason = request.getParameter("reason");
+		int amount = Integer.parseInt(request.getParameter("amount"));
+		String date = request.getParameter("date");
+		int overBalanceID = Integer.parseInt(request.getParameter("overBalanceID"));	
+		
+		Cookie[] cookies = request.getCookies();
+		int companyID = 0;
+		if(cookies!=null){
+			for(Cookie cookie:cookies){
+				if(cookie.getName().equals("companyID"))
+					companyID = Integer.parseInt(cookie.getValue());
+			}
+			
+		}
+		
+		dao.addInBill(payer, reason, amount, companyID, date, overBalanceID);
+		response.sendRedirect("InBill");
+	}
+
 	private void doWageTable(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException {
 		// TODO Auto-generated method stub
 		int month = Integer.parseInt(request.getParameter("month"));
@@ -91,8 +194,18 @@ public class Common extends HttpServlet {
 		System.out.println("year" + year);
         String[] wages = request.getParameterValues("wage");
         String[] notes = request.getParameterValues("note");
+        Cookie[] cookies = request.getCookies();
+        int companyID = 0;
+        if(cookies!=null){
+        	for(Cookie cookie:cookies){
+        		if(cookie.getName().equals("companyID"))
+        			companyID = Integer.parseInt(cookie.getValue());
+        	}
+        	
+        }
+        
         List<WageTableDetail> list = new ArrayList<WageTableDetail>();
-        List<Employee> nv = dao.getAllNV();
+        List<Employee> nv = dao.getAllNV(companyID);
         for(int i=0; i<nv.size(); i++) {
         	String name = nv.get(i).getName();
         	String department = nv.get(i).getDepartment();
@@ -108,6 +221,32 @@ public class Common extends HttpServlet {
 		}	
         
     
+		
+		
+		dao.addWageTable(list, month, year, totalMoney, companyID);
+		response.sendRedirect("WageTable");
+		
+		
+	}
+	
+	private void doSellingBill(HttpServletRequest request, HttpServletResponse response) throws SQLException, ParseException, IOException {
+		// TODO Auto-generated method stub
+		//String nhacc = request.getParameter("nhacc1");		
+		String reason = request.getParameter("reason");		
+		String receiver = request.getParameter("nhacc");	
+		String seller = request.getParameter("NVBH");	
+		String date = request.getParameter("date");		
+		String code = request.getParameter("code");		
+		String[] names = request.getParameterValues("goodName");
+		String[] quantity = request.getParameterValues("code1");
+		String[] price = request.getParameterValues("code2");	
+		String[] total = request.getParameterValues("code3");	
+		int overBalanceID = Integer.parseInt(request.getParameter("overBalanceID"));		
+		int totalMoney = 0;
+		for(int i=0;i<total.length;i++) {
+			totalMoney+=Integer.parseInt(total[i]);
+		}	
+		
 		Cookie[] cookies = request.getCookies();
 		int companyID = 0;
 		if(cookies!=null){
@@ -117,15 +256,18 @@ public class Common extends HttpServlet {
 			}
 			
 		}
-		
-		
-		
-		dao.addWageTable(list, month, year, totalMoney, companyID);
-		response.sendRedirect("WageTable");
-		
-		
+		List<SellingDetail> sd = new ArrayList<>();
+		for(int i=0; i<names.length; i++) {
+			String name = names[i];
+			int quantity1 = Integer.parseInt(quantity[i]);
+			int price1 = Integer.parseInt(price[i]);
+			sd.add(new SellingDetail(0, 0, name, quantity1, price1));
+			
+		}
+		dao.addSellingBill(code, date, reason, receiver, companyID, overBalanceID, totalMoney, seller,sd);
+		response.sendRedirect("SellingBill");
 	}
-
+	
 	private void doPurchaseBill(HttpServletRequest request, HttpServletResponse response) 
 			throws ClassNotFoundException, SQLException, ParseException, IOException {
 		// TODO Auto-generated method stub
@@ -181,7 +323,7 @@ public class Common extends HttpServlet {
 		System.out.println(goodCategory);
 		Good g = new Good(0, name, goodCategory, companyID);
 		
-		boolean check = new Dao().addGood(g);
+		boolean check = new Dao().addGood(g, companyID);
 		if(check == true) {
 			response.sendRedirect("Good");
 		}
@@ -213,7 +355,7 @@ public class Common extends HttpServlet {
 		}
 		
 		Employee nv = new Employee(0, name, department, role, bankAccount, bankName, wage, companyID);
-        boolean check = new Dao().addEmployee(nv);
+        boolean check = new Dao().addEmployee(nv, companyID);
 		if (check == true){
 			response.sendRedirect("Employee");
 		}
@@ -234,25 +376,24 @@ public class Common extends HttpServlet {
 		String taxNum = request.getParameter("taxNum");
 		Cookie[] cookies = request.getCookies();
 		int companyID = 0;
+		int accountID = 0;
 		if(cookies!=null){
 			for(Cookie cookie:cookies){
 				if(cookie.getName().equals("companyID"))
 					companyID = Integer.parseInt(cookie.getValue());
+				if(cookie.getName().equals("accountID"))
+					accountID = Integer.parseInt(cookie.getValue());
 			}
 			
 		}
+		
+		
 		System.out.println(companyID);
 		Customer c = new Customer(0, code, name, address, taxNum, companyID);
-		boolean check = new Dao().addCustomer(c);
-		if (check == true){
-			response.sendRedirect("Customer");
-		}
-		else {
-			Cookie message = new Cookie("message", "not success");
-			response.addCookie(message);
-			
-			response.sendRedirect("Customer");
-		}
+		dao.addCustomer(c, accountID);
+		
+		response.sendRedirect("Customer");
+		
 	}
 
 	private void doTemp(HttpServletRequest request, HttpServletResponse response) {

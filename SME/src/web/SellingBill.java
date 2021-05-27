@@ -10,26 +10,28 @@ import javax.servlet.http.HttpServletResponse;
 import DAO.Dao;
 
 /**
- * Servlet implementation class KCLL
+ * Servlet implementation class SellingBill
  */
 
-public class KCLL extends HttpServlet {
+public class SellingBill extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
 	Dao dao;
-    public KCLL() {
+    public SellingBill() {
         super();
-        // TODO Auto-generated constructor stub
         dao = new Dao();
+        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		String action = request.getServletPath();
 		request.setCharacterEncoding("UTF-8");
 		try {
@@ -37,7 +39,7 @@ public class KCLL extends HttpServlet {
 			
 		
 			default:
-				showGTGTPage(request, response);
+				showSellingPage(request, response);
 				break;
 			}
 		} catch (Exception e) {
@@ -45,9 +47,9 @@ public class KCLL extends HttpServlet {
 		}
 	}
 
-	private void showGTGTPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void showSellingPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("KCLL.jsp").forward(request,response);
+		request.getRequestDispatcher("SellingBill.jsp").forward(request, response);
 	}
 
 	/**
