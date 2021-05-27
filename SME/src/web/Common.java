@@ -246,7 +246,7 @@ public class Common extends HttpServlet {
 		for(int i=0;i<total.length;i++) {
 			totalMoney+=Integer.parseInt(total[i]);
 		}	
-		
+		totalMoney += (int)(totalMoney / 10);
 		Cookie[] cookies = request.getCookies();
 		int companyID = 0;
 		if(cookies!=null){
@@ -285,6 +285,7 @@ public class Common extends HttpServlet {
 		for(int i=0;i<total.length;i++) {
 			totalMoney+=Integer.parseInt(total[i]);
 		}	
+		totalMoney += (int)(totalMoney / 10);
 		
 		Cookie[] cookies = request.getCookies();
 		int companyID = 0;
