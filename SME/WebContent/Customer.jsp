@@ -159,7 +159,6 @@
 	    var MaKHs = document.getElementsByClassName("MaKH");
 	    var code = document.getElementById("code");
 	    var btn = document.getElementById("btnSave");
-	    console.log(MaKHs[0].textContent);
         var content = document.querySelector(".content");
         var dialog = document.querySelector(".dialog");
         function add(){
