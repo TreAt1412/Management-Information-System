@@ -304,7 +304,7 @@ public class Common extends HttpServlet {
 			pd.add(new PurchaseDetail(0, 0, name, quantity1, price1));
 			
 		}
-		dao.addPurchaseBill(code, date, reason, receiver, companyID, overBalanceID, totalMoney, receiver, pd);
+		dao.addPurchaseBill(code, date, reason, receiver, companyID, overBalanceID, totalMoney, nhacc, pd);
 		response.sendRedirect("PurchaseBill");
 	}
 
