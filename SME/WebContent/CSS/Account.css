@@ -1,6 +1,7 @@
 @charset "ISO-8859-1";
 body{
 	margin: 0;
+	position: relative;
 }
 .menu{
 	position:absolute;
@@ -30,7 +31,10 @@ body{
 	width: 100%;
 	height: 50px;
 }
-
+.logo-text p a{	
+	text-align: center;
+	text-decoration: none;
+}
 #menu-content{
 	width: 100%;
 	

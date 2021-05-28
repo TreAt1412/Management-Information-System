@@ -23,7 +23,7 @@
 	<div class="menu">
 		<!-- Logo -->
 		<div id="logo">
-			<div class="logo-text">MASI</div>
+			<div class="logo-text"><p><a href="Home">MASI</a></p></div>
 		</div>
 		<!-- menu-item -->
 		<div id="menu-content">
