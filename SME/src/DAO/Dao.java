@@ -40,9 +40,9 @@ public class Dao {
 	
 	public Dao() {
 		try {
-			String connectString = "jdbc:mysql://localhost:3306/sme";
+			String connectString = "jdbc:mysql://b42nprse0flpxiihx96f-mysql.services.clever-cloud.com:3306/b42nprse0flpxiihx96f";
 	        Class.forName("com.mysql.jdbc.Driver");
-	        connection = (Connection) DriverManager.getConnection(connectString, "root", "Thang310599");
+	        connection = (Connection) DriverManager.getConnection(connectString, "uv7gr4cxwtprm0ft", "mEQPoLMvqQfGxgjq6hCC");
 	        
 		}
 		catch (Exception e) {
