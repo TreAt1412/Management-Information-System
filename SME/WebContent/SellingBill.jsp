@@ -87,8 +87,8 @@
 								<th>ID</th>
 								<th>Mã chứng từ</th>
 								<th>Ngày nhập</th>
-								<th>Người mua</th>
-								<th>Người bán</th>
+								<th>Nhân viên bán</th>
+								<th>Khách hàng</th>
 								<th>Diễn giải</th>
 								<th>Số dư</th>
 								<th>Tổng tiền</th>
